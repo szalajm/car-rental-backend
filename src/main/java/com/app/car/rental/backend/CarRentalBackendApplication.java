@@ -1,4 +1,4 @@
-package com.app.car_rental_backend;
+package com.app.car.rental.backend;
 
 
 
