@@ -1,21 +1,21 @@
 package com.app.car.rental.backend.repository;
 
 
-import com.app.car.rental.backend.domain.Location;
+import com.app.car.rental.backend.domain.LocationEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface LocationRepository extends CrudRepository<Location, Long> {
+public interface LocationRepository extends CrudRepository<LocationEntity, Long> {
     @Override
-    List<Location> findAll();
+    List<LocationEntity> findAll();
 
     @Override
-    Location save(Location location);
+    LocationEntity save(LocationEntity locationEntity);
 
     @Override
-    Optional<Location> findById(Long id);
+    Optional<LocationEntity> findById(Long id);
 
     @Override
     void deleteById(Long id);

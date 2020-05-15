@@ -1,18 +1,17 @@
 package com.app.car.rental.backend.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Entity
-//@Getter
-//@AllArgsConstructor
-//@NoArgsConstructor
+//@Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class NbpApiDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -32,8 +31,8 @@ public class NbpApiDto {
         this.name = name;
     }
 
-    public NbpApiDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+//    public NbpApiDto(Long id, String name) {
+//        this.id = id;
+//        this.name = name;
+//    }
 }

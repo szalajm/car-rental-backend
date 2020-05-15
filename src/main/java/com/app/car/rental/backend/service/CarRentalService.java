@@ -4,17 +4,10 @@ package com.app.car.rental.backend.service;
 
 //import com.app.car.rental.backend.api.nbp.model.NbpApi;
 
-import com.app.car.rental.backend.domain.Location;
-import com.app.car.rental.backend.domain.NbpApi;
-import com.app.car.rental.backend.domain.Rate;
-import com.app.car.rental.backend.domain.User;
-import com.app.car.rental.backend.domain.Vehicle;
-import com.app.car.rental.backend.repository.LocationRepository;
-import com.app.car.rental.backend.repository.NbpRepository;
-import com.app.car.rental.backend.repository.RateRepository;
-import com.app.car.rental.backend.repository.SearchRepository;
-import com.app.car.rental.backend.repository.UserRepository;
-import com.app.car.rental.backend.repository.VehicleRepository;
+import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
+import com.app.car.rental.backend.api.avis.model.location.Location;
+import com.app.car.rental.backend.domain.*;
+import com.app.car.rental.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +35,25 @@ public class CarRentalService {
     @Autowired
     NbpRepository nbpRepository;
 
+    @Autowired
+    private AvisLocationService avisLocationService;
+
+    @Autowired
+    private  AvisVehicleService avisVehicleService;
+
+
+    public List<Location> locationSearch(String location){
+        AvisApiLocation avisApiLocation = avisLocationService.locations(location);
+        if(avisApiLocation!=null){
+            List<Location> locations = avisApiLocation.getLocations();
+            return locations;
+        }
+        return null;
+    }
+
+    public void carSearch(CarSearchRequestDto carSearchRequestDto){
+        avisVehicleService.vehicles(carSearchRequestDto);
+    }
 
     public List<Vehicle> readAllVehicles() {
         return vehicleRepository.findAll();
@@ -107,16 +119,16 @@ public class CarRentalService {
         vehicleRepository.deleteById(id);
     }
 
-    public List<Location> readAllLocations() {
+    public List<LocationEntity> readAllLocations() {
         return locationRepository.findAll();
     }
 
-    public Optional<Location> readLocation(final Long id) {
+    public Optional<LocationEntity> readLocation(final Long id) {
         return locationRepository.findById(id);
     }
 
-    public Location saveLocation(final Location location) {
-        return locationRepository.save(location);
+    public LocationEntity saveLocation(final LocationEntity locationEntity) {
+        return locationRepository.save(locationEntity);
     }
 
     public void deleteLocation(final Long id) {

@@ -32,8 +32,10 @@ public class Vehicle {
         this.name = name;
     }
 
-    public Vehicle(String name) {
+    public Vehicle(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
+
 }
 

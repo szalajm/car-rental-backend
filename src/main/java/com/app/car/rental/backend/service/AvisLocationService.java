@@ -22,7 +22,7 @@ public class AvisLocationService {
     @Autowired
     private AvisTokenService avisTokenService;
 
-    public void locations(){
+    public AvisApiLocation locations(String location){
         AvisApiToken avisApiToken= avisTokenService.token();
         String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
 
@@ -46,9 +46,10 @@ public class AvisLocationService {
 
         UriComponentsBuilder builder = UriComponentsBuilder
                 .fromUriString(serverUrl)
+                .queryParam("keyword", location);
                 // Add query parameter
-                .queryParam("lat", "42.3736861242963")
-                .queryParam("long", "-71.029931402219");
+                //.queryParam("lat", "42.3736861242963")
+                //.queryParam("long", "-71.029931402219");
 
         //String response = restTemplate.getForObject(builder.toUriString(), String.class);
         //ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, String.class);
@@ -56,6 +57,8 @@ public class AvisLocationService {
         //ResponseEntity<String> response = restTemplate.getForEntity(serverUrl, String.class, parameters);
         //String responseBody = response.getBody();
         LOGGER.info("#### responseBody: " + response.getBody());
+        LOGGER.info("#### locations: " + response.getBody().getLocations());
+        return response.getBody();
 
     }
 }

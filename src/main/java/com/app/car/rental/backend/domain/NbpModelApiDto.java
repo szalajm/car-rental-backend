@@ -1,25 +1,24 @@
 package com.app.car.rental.backend.domain;
 
 import com.app.car.rental.backend.api.nbp.model.Rate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-@Entity
-//@Getter
-//@AllArgsConstructor
-//@NoArgsConstructor
+//@Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class NbpModelApiDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Long id;
 
     //@JsonProperty("table")
     private String table;

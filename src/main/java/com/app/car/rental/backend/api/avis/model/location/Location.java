@@ -125,4 +125,17 @@ public class Location {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "brand='" + brand + '\'' +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", hours='" + hours + '\'' +
+                ", airportLocation=" + airportLocation +
+                ", address=" + address +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 }

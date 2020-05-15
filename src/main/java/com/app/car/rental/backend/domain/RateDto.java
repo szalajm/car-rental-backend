@@ -1,15 +1,18 @@
 package com.app.car.rental.backend.domain;
 
 
-import javax.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-//@Getter
-//@AllArgsConstructor
-//@NoArgsConstructor
+//@Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RateDto {
 
     @Id
@@ -33,8 +36,8 @@ public class RateDto {
         this.name = name;
     }
 
-    public RateDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+//    public RateDto(Long id, String name) {
+//        this.id = id;
+//        this.name = name;
+//    }
 }

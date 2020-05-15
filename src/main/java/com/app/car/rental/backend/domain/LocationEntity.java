@@ -11,7 +11,7 @@ import javax.persistence.Id;
 //@Data
 @Entity
 
-public class Location {
+public class LocationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class Location {
         this.name = name;
     }
 
-    public Location(Long id, String name) {
+    public LocationEntity(Long id, String name) {
         this.id = id;
         this.name = name;
     }

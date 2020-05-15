@@ -1,14 +1,17 @@
 package com.app.car.rental.backend.domain;
 
-import javax.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-//@Getter
-//@NoArgsConstructor
-//@AllArgsConstructor
+//@Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class VehicleDto {
 
 
