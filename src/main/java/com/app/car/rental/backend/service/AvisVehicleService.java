@@ -27,7 +27,7 @@ public class AvisVehicleService {
     @Autowired
     private AvisTokenService avisTokenService;
 
-    public void vehicles(CarSearchRequestDto carSearchRequestDto) {
+    public AvisApiVehicle vehicles(CarSearchRequestDto carSearchRequestDto) {
         AvisApiToken avisApiToken = avisTokenService.token();
         String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
 
@@ -47,18 +47,6 @@ public class AvisVehicleService {
 
         String serverUrl = "https://stage.abgapiservices.com/cars/catalog/v1/vehicles";
 
-//        UriComponentsBuilder builder = UriComponentsBuilder
-//                .fromUriString(serverUrl)
-//                // Add query parameter
-//                .queryParam("brand", "Avis")
-//                //.queryParam("pickup_date", carSearchRequestDto.getPickUpDate())
-//                .queryParam("pickup_date", "2020-08-05T12:00:00")
-//                .queryParam("pickup_location", carSearchRequestDto.getPickUpLocation())
-//                .queryParam("dropoff_date", "2020-08-07T12:00:00")
-//                //.queryParam("dropoff_date", carSearchRequestDto.getDropOffDate())
-//                .queryParam("dropoff_location", carSearchRequestDto.getDropOffLocation())
-//                .queryParam("country_code", "PL");
-        //https://stage.abgapiservices.com/cars/catalog/v1/vehicles
         UriComponents builder = UriComponentsBuilder
                 .fromHttpUrl(serverUrl)
                 // Add query parameter
@@ -89,10 +77,12 @@ public class AvisVehicleService {
             ResponseEntity<AvisApiVehicle> response = restTemplate.exchange(builder.toUri(), HttpMethod.GET, requestEntity, AvisApiVehicle.class);
 
             LOGGER.info("#### responseBody: " + response.getBody());
+            return response.getBody();
         } catch (RuntimeException e) {
             LOGGER.severe("####: restTemplate exchange exception");
             e.printStackTrace();
         }
+        return null;
     }
 
 }

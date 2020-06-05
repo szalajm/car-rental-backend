@@ -1,6 +1,7 @@
 package com.app.car.rental.backend.controller;
 
 import com.app.car.rental.backend.api.avis.model.location.Location;
+import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.domain.CarSearchRequestDto;
 import com.app.car.rental.backend.service.CarRentalService;
 import org.springframework.stereotype.Controller;
@@ -49,7 +50,9 @@ public class CarRentalController {
             ModelMap modelMap){
         LOGGER.info("carChooseView");
         LOGGER.info("carSearchRequestDto: " + carSearchRequestDto);
-        carRentalService.carSearch(carSearchRequestDto);
+       AvisApiVehicle avisApiVehicle = carRentalService.carSearch(carSearchRequestDto);
+       LOGGER.info("avisApiVehicle: " + avisApiVehicle);
+       modelMap.addAttribute("vehicles", avisApiVehicle.getVehicles());
         return "car-choose";
     }
 

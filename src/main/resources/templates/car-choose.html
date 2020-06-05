@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wybor samochodu</title>
+</head>
+<body>
+<h1>Wybor samochodu</h1>
+<div>
+<!--    <div th:text="${vehicles}"></div>-->
+    <div>
+        <p>dostepne samochody</p>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Nazwa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vehicle : ${vehicles}">
+                <th scope="row"><input type="radio" name="pickUpLocation" th:value="${vehicle}"></th>
+                <td th:text="${vehicle}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

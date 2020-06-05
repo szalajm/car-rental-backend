@@ -6,6 +6,7 @@ package com.app.car.rental.backend.service;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.location.Location;
+import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.domain.*;
 import com.app.car.rental.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,8 @@ public class CarRentalService {
         return null;
     }
 
-    public void carSearch(CarSearchRequestDto carSearchRequestDto){
-        avisVehicleService.vehicles(carSearchRequestDto);
+    public AvisApiVehicle carSearch(CarSearchRequestDto carSearchRequestDto){
+        return avisVehicleService.vehicles(carSearchRequestDto);
     }
 
     public List<Vehicle> readAllVehicles() {
