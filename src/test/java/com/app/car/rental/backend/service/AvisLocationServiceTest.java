@@ -8,13 +8,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class AvisRateServiceTest {
-
+public class AvisLocationServiceTest {
     @Autowired
-    private AvisRateService avisRateService;
+    private AvisLocationService avisLocationService;
 
     @Test
-    public void rate() {
-        avisRateService.rates();
+    public void locations() {
+        avisLocationService.locations("warszawa");
     }
 }

@@ -2,7 +2,8 @@ package com.app.car.rental.backend.controller;
 
 import com.app.car.rental.backend.api.avis.model.location.Location;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
-import com.app.car.rental.backend.domain.CarSearchRequestDto;
+import com.app.car.rental.backend.domain.web.CarReservationRequestDto;
+import com.app.car.rental.backend.domain.web.CarSearchRequestDto;
 import com.app.car.rental.backend.service.CarRentalService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +25,7 @@ public class CarRentalController {
     }
 
     @GetMapping
-    public String rentalView(ModelMap modelMap){
+    public String rentalView(ModelMap modelMap) {
         return "car-rental";
     }
 
@@ -32,13 +33,13 @@ public class CarRentalController {
     public String carSearchView(
             @RequestParam String pickUpLocation,
             @RequestParam String dropOffLocation,
-            ModelMap modelMap){
+            ModelMap modelMap) {
         LOGGER.info("pickUpLocation: " + pickUpLocation);
         LOGGER.info("dropOffLocation: " + dropOffLocation);
         List<Location> pickUpLocations = carRentalService.locationSearch(pickUpLocation);
         List<Location> dropOffLocations = carRentalService.locationSearch(dropOffLocation);
-        modelMap.addAttribute("pickUpLocations",pickUpLocations);
-        modelMap.addAttribute("dropOffLocations",dropOffLocations);
+        modelMap.addAttribute("pickUpLocations", pickUpLocations);
+        modelMap.addAttribute("dropOffLocations", dropOffLocations);
         modelMap.addAttribute("carSearch", new CarSearchRequestDto());
         return "car-search";
     }
@@ -46,17 +47,24 @@ public class CarRentalController {
     @PostMapping("/car-choose")
     public String carChooseView(
             //@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate pickUpDate,
-            @ModelAttribute(name ="carSearch") CarSearchRequestDto carSearchRequestDto,
-            ModelMap modelMap){
+            @ModelAttribute(name = "carSearch") CarSearchRequestDto carSearchRequestDto,
+            ModelMap modelMap) {
         LOGGER.info("carChooseView");
         LOGGER.info("carSearchRequestDto: " + carSearchRequestDto);
-       AvisApiVehicle avisApiVehicle = carRentalService.carSearch(carSearchRequestDto);
-       LOGGER.info("avisApiVehicle: " + avisApiVehicle);
-       modelMap.addAttribute("vehicles", avisApiVehicle.getVehicles());
+        AvisApiVehicle avisApiVehicle = carRentalService.carSearch(carSearchRequestDto);
+        LOGGER.info("avisApiVehicle: " + avisApiVehicle);
+        modelMap.addAttribute("vehicles", avisApiVehicle.getVehicles());
         return "car-choose";
     }
 
-
+    @GetMapping("/car-reservation")
+    public String carReservationView(
+            @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
+            ModelMap modelMap) {
+        LOGGER.info("carReservationView");
+        LOGGER.info("carReservationRequestDto: " + carReservationRequestDto);
+        return "car-reservation";
+    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.domain;
+package com.app.car.rental.backend.domain.web;
 
 import com.app.car.rental.backend.api.avis.model.location.Address;
 import lombok.AllArgsConstructor;

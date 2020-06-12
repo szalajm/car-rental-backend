@@ -1,7 +1,7 @@
 package com.app.car.rental.backend.mapper;
 
 import com.app.car.rental.backend.api.avis.model.rate.Rate;
-import com.app.car.rental.backend.domain.AvisModelRateDto;
+import com.app.car.rental.backend.domain.web.AvisModelRateDto;
 import org.springframework.stereotype.Service;
 
 @Service

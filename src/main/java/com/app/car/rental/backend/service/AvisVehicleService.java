@@ -3,7 +3,9 @@ package com.app.car.rental.backend.service;
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.controller.RestTemplateResponseErrorHandler;
-import com.app.car.rental.backend.domain.CarSearchRequestDto;
+import com.app.car.rental.backend.domain.web.CarSearchRequestDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -61,6 +63,7 @@ public class AvisVehicleService {
                 //.encode()
                 .build(true);
         LOGGER.info("####: queryParams: " + builder.toUri());
+        LOGGER.info("####: requestEntity: " + requestEntity);
         try {
 //            String instanceUrl = "https://abc.my.salesforce.com"
 //            HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -77,9 +80,14 @@ public class AvisVehicleService {
             ResponseEntity<AvisApiVehicle> response = restTemplate.exchange(builder.toUri(), HttpMethod.GET, requestEntity, AvisApiVehicle.class);
 
             LOGGER.info("#### responseBody: " + response.getBody());
+            ObjectMapper objectMapper = new ObjectMapper();
+            String bodyString = objectMapper.writeValueAsString(response.getBody());
+            LOGGER.info("##### bodyString: " + bodyString);
             return response.getBody();
         } catch (RuntimeException e) {
             LOGGER.severe("####: restTemplate exchange exception");
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return null;

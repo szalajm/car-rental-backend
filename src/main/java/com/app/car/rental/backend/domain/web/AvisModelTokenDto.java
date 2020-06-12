@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.domain;
+package com.app.car.rental.backend.domain.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

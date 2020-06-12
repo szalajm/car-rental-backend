@@ -1,7 +1,7 @@
 package com.app.car.rental.backend.mapper;
 
 import com.app.car.rental.backend.api.avis.model.vehicle.Vehicle;
-import com.app.car.rental.backend.domain.AvisModelVehicleDto;
+import com.app.car.rental.backend.domain.web.AvisModelVehicleDto;
 
 public class AvisModelVehicleMapper {
 

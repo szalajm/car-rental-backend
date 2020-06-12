@@ -1,7 +1,7 @@
 package com.app.car.rental.backend.mapper;
 
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;
-import com.app.car.rental.backend.domain.AvisModelTokenDto;
+import com.app.car.rental.backend.domain.web.AvisModelTokenDto;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,7 +1,7 @@
 package com.app.car.rental.backend.mapper;
 
 import com.app.car.rental.backend.api.avis.model.location.Location;
-import com.app.car.rental.backend.domain.AvisModelLocationDto;
+import com.app.car.rental.backend.domain.web.AvisModelLocationDto;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
