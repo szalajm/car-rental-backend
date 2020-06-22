@@ -7,64 +7,70 @@
 <body>
 <h1>Wybor samochodu</h1>
 <div>
-<!--    <div th:text="${vehicles}"></div>-->
-    <div>
-        <p>dostepne samochody</p>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Nazwa</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="vehicle : ${vehicles}">
-<!--                <th scope="row"><input type="radio" name="vehicle" th:value="${vehicle}"></th>-->
-                <td>
-                    <div>
-                        <div th:text="${vehicle.category.name}"></div>
-                        <div th:text="${vehicle.category.make}"></div>
+    <!--    <div th:text="${vehicles}"></div>-->
+    <form action="#" th:action="@{/v1/rental/cars/reservation}" th:object="${carReservation}" method="post">
+        <div>
+            <p>dostepne samochody</p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nazwa</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vehicle, stat : ${vehicles}">
+                    <!--                <th scope="row"><input type="radio" name="vehicle" th:value="${vehicle}"></th>-->
+                    <th scope="row"><input type="radio" name="vehicle" th:value="${vehicles[__${stat.index}__]}" /></th>
+                    <td>
                         <div>
-                            <a href="#" th:href="@{/v1/rental/car-reservation}"> rezerwuj </a>
+                            <div th:text="${vehicle.category.name}"></div>
+                            <input type="hidden" name="categoryName" th:value="${vehicle.category.name}">
+                            <div th:text="${vehicle.category.make}"></div>
+                            <input type="hidden" th:field="*{categoryMake}">
                         </div>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-<!--
-"category": {
-                "name": "Group A - Fiat 500 or similar",
-                "make": "Fiat",
-                "model": "500",
-                "sipp_code": "ECMR",
-                "vehicle_class_code": "A",
-                "vehicle_class_name": "Mini Manual",
-                "vehicle_transmission": "Manual",
-                "image_url": "https://www.avis.com/content/dam/cars/l/2014/fiat/2014-fiat-500-lounge-hatchback-black.png"
-            },
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <!--                                <a href="#" th:href="@{/v1/rental/cars/reservation}">rezerwuj</a>-->
+                <button type="submit">rezerwuj</button>
+            </div>
+            <!--
+            "category": {
+                            "name": "Group A - Fiat 500 or similar",
+                            "make": "Fiat",
+                            "model": "500",
+                            "sipp_code": "ECMR",
+                            "vehicle_class_code": "A",
+                            "vehicle_class_name": "Mini Manual",
+                            "vehicle_transmission": "Manual",
+                            "image_url": "https://www.avis.com/content/dam/cars/l/2014/fiat/2014-fiat-500-lounge-hatchback-black.png"
+                        },
 
-            "capacity": {
-                "doors": "2",
-                "seats": "4",
-                "luggage_capacity": {
-                    "large_suitcase": "1"
-                }
+                        "capacity": {
+                            "doors": "2",
+                            "seats": "4",
+                            "luggage_capacity": {
+                                "large_suitcase": "1"
+                            }
 
-                 "rate_totals": {
-                "rate": {
-                    "currency": "PLN",
-                    "rate_code": "7JI",
-                    "coupon_applied": false,
-                    "under_age_fee_applied": false,
-                    "coupon_discount_amount": 0.0
-                },
-                "pay_later": {
-                    "vehicle_total": 543.67,
-                    "reservation_total": 641.53
-                }
--->
-    </div>
+                             "rate_totals": {
+                            "rate": {
+                                "currency": "PLN",
+                                "rate_code": "7JI",
+                                "coupon_applied": false,
+                                "under_age_fee_applied": false,
+                                "coupon_discount_amount": 0.0
+                            },
+                            "pay_later": {
+                                "vehicle_total": 543.67,
+                                "reservation_total": 641.53
+                            }
+            -->
+        </div>
+    </form>
 </div>
 </body>
 </html>

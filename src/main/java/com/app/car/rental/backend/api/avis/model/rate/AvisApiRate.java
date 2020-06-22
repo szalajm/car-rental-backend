@@ -13,7 +13,7 @@ import java.util.Map;
     "product",
     "reservation"
 })
-public class AvisApiRatesGetResponse {
+public class AvisApiRate {
 
     @JsonProperty("status")
     private Status status;
@@ -78,7 +78,7 @@ public class AvisApiRatesGetResponse {
 
     @Override
     public String toString() {
-        return "AvisApiRatesGetResponse{" + "status=" + status +
+        return "AvisApiRate{" + "status=" + status +
                 ", transaction=" + transaction +
                 ", product=" + product +
                 ", reservation=" + reservation +

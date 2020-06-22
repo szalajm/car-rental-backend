@@ -1,6 +1,6 @@
 package com.app.car.rental.backend.service;
 
-import com.app.car.rental.backend.domain.web.CarSearchRequestDto;
+import com.app.car.rental.backend.domain.web.LocationSearchRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class AvisVehicleServiceTest {
     @Test
     public void vehicles() {
         //Given
-        CarSearchRequestDto carSearchRequestDto = CarSearchRequestDto.builder()
+        LocationSearchRequestDto locationSearchRequestDto = LocationSearchRequestDto.builder()
                 .pickUpDate("2020-08-05T12:00:00")
                 .pickUpLocation("GDN")
                 .dropOffDate("2020-08-07T12:00:00")
@@ -25,7 +25,7 @@ public class AvisVehicleServiceTest {
                 .build();
 
         //When
-        avisVehicleService.vehicles(carSearchRequestDto);
+        avisVehicleService.vehicles(locationSearchRequestDto);
 
         //Then
 

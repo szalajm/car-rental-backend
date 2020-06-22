@@ -1,6 +1,6 @@
 package com.app.car.rental.backend.service;
 
-import com.app.car.rental.backend.api.avis.model.rate.AvisApiRatesGetResponse;
+import com.app.car.rental.backend.api.avis.model.rate.AvisApiRate;
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -21,7 +21,7 @@ public class AvisRateService {
     @Autowired
     public AvisTokenService avisTokenService;
 
-    public AvisApiRatesGetResponse rates(){
+    public AvisApiRate rates(){
 
         AvisApiToken avisApiToken = avisTokenService.token();
         String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
@@ -49,7 +49,7 @@ public class AvisRateService {
                 .queryParam("vehicle_class_code", "A")
                 .queryParam("rate_code", "DH");
 
-        ResponseEntity<AvisApiRatesGetResponse> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, AvisApiRatesGetResponse.class);
+        ResponseEntity<AvisApiRate> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, AvisApiRate.class);
 
         LOGGER.info("#### responseBody: " + response.getBody());
         return response.getBody();

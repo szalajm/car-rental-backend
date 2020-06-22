@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarSearchRequestDto {
+public class LocationSearchRequestDto {
     private String pickUpLocation;
     private String dropOffLocation;
     private String pickUpDate;

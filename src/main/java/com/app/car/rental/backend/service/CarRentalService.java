@@ -5,10 +5,9 @@ package com.app.car.rental.backend.service;
 //import com.app.car.rental.backend.api.nbp.model.NbpApi;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
-import com.app.car.rental.backend.api.avis.model.location.Location;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.domain.*;
-import com.app.car.rental.backend.domain.web.CarSearchRequestDto;
+import com.app.car.rental.backend.domain.web.LocationSearchRequestDto;
 import com.app.car.rental.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,20 +40,17 @@ public class CarRentalService {
     private AvisLocationService avisLocationService;
 
     @Autowired
-    private  AvisVehicleService avisVehicleService;
+    private AvisVehicleService avisVehicleService;
 
 
-    public List<Location> locationSearch(String location){
-        AvisApiLocation avisApiLocation = avisLocationService.locations(location);
-        if(avisApiLocation!=null){
-            List<Location> locations = avisApiLocation.getLocations();
-            return locations;
-        }
-        return null;
+    public AvisApiLocation locationSearch(String location) {
+        return avisLocationService.locations(location);
+
     }
 
-    public AvisApiVehicle carSearch(CarSearchRequestDto carSearchRequestDto){
-        return avisVehicleService.vehicles(carSearchRequestDto);
+
+    public AvisApiVehicle carSearch(LocationSearchRequestDto locationSearchRequestDto){
+        return avisVehicleService.vehicles(locationSearchRequestDto);
     }
 
     public List<Vehicle> readAllVehicles() {

@@ -3,7 +3,7 @@ package com.app.car.rental.backend.service;
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.controller.RestTemplateResponseErrorHandler;
-import com.app.car.rental.backend.domain.web.CarSearchRequestDto;
+import com.app.car.rental.backend.domain.web.LocationSearchRequestDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class AvisVehicleService {
     @Autowired
     private AvisTokenService avisTokenService;
 
-    public AvisApiVehicle vehicles(CarSearchRequestDto carSearchRequestDto) {
+    public AvisApiVehicle vehicles(LocationSearchRequestDto locationSearchRequestDto) {
         AvisApiToken avisApiToken = avisTokenService.token();
         String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
 
@@ -53,12 +53,12 @@ public class AvisVehicleService {
                 .fromHttpUrl(serverUrl)
                 // Add query parameter
                 .queryParam("brand", "Avis")
-                //.queryParam("pickup_date", carSearchRequestDto.getPickUpDate())
+                //.queryParam("pickup_date", locationSearchRequestDto.getPickUpDate())
                 .queryParam("pickup_date", URLEncoder.encode("2020-08-05T12:00:00"))
-                .queryParam("pickup_location", carSearchRequestDto.getPickUpLocation())
+                .queryParam("pickup_location", locationSearchRequestDto.getPickUpLocation())
                 .queryParam("dropoff_date", URLEncoder.encode("2020-08-07T12:00:00"))
-                //.queryParam("dropoff_date", carSearchRequestDto.getDropOffDate())
-                .queryParam("dropoff_location", carSearchRequestDto.getDropOffLocation())
+                //.queryParam("dropoff_date", locationSearchRequestDto.getDropOffDate())
+                .queryParam("dropoff_location", locationSearchRequestDto.getDropOffLocation())
                 .queryParam("country_code", "PL")
                 //.encode()
                 .build(true);
