@@ -4,7 +4,6 @@ import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.domain.web.AvisModelSessionDto;
 import com.app.car.rental.backend.domain.web.CarReservationRequestDto;
-import com.app.car.rental.backend.domain.web.CarReservationVehicleRequestDto;
 import com.app.car.rental.backend.domain.web.LocationSearchRequestDto;
 import com.app.car.rental.backend.service.CarRentalService;
 import org.springframework.stereotype.Controller;
@@ -80,8 +79,8 @@ public class CarRentalController {
 
     @PostMapping("/cars/reservation")
     public String carReservationView(
-//            @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
-            @RequestBody CarReservationVehicleRequestDto carReservationRequestDto,
+            @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
+//            @RequestBody CarReservationVehicleRequestDto carReservationRequestDto,
             ModelMap modelMap) {
         LOGGER.info("carReservationView");
         LOGGER.info("carReservationRequestDto: " + carReservationRequestDto);
