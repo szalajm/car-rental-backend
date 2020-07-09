@@ -14,6 +14,8 @@ public class CarReservationRequestDto {
     private String[] categoryName;
     private String categoryMake;
     private Integer chosen;
-    private CarReservationVehicleRequestDto vehicle;
+    private String vehicleClassCode;
+    private String vehicleClassName;
+//    private CarReservationVehicleRequestDto vehicle;
 
 }

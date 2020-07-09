@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Wybor samochodu</title>
+    <link href="/css/car-choose.css" rel="stylesheet"/>
+
 </head>
 <body>
 <h1>Wybor samochodu</h1>
@@ -24,8 +26,9 @@
                     <th scope="row"><input type="radio" name="vehicle" th:value="${vehicles[__${stat.index}__]}" /></th>
                     <td>
                         <div>
-                            <div th:text="${vehicle.category.name}"></div>
+                            <div class="chosenCar" th:text="${vehicle.category.name}"></div>
                             <input type="hidden" name="categoryName" th:value="${vehicle.category.name}">
+                            <input type="hidden" name="vehicleClassCode" th:field="*{vehicleClassCode}" th:value="${vehicle.category.vehicleClassCode}">
                             <div th:text="${vehicle.category.make}"></div>
                             <input type="hidden" th:field="*{categoryMake}">
                         </div>
@@ -72,5 +75,7 @@
         </div>
     </form>
 </div>
+<script defer src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script defer src="/js/car-choose.js"></script>
 </body>
 </html>
