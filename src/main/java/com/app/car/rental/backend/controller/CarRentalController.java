@@ -1,10 +1,13 @@
 package com.app.car.rental.backend.controller;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostresponse;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.domain.web.AvisModelSessionDto;
 import com.app.car.rental.backend.domain.web.CarReservationRequestDto;
 import com.app.car.rental.backend.domain.web.LocationSearchRequestDto;
+import com.app.car.rental.backend.service.AvisReservationService;
 import com.app.car.rental.backend.service.CarRentalService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,8 +24,11 @@ public class CarRentalController {
 
     private CarRentalService carRentalService;
 
-    public CarRentalController(CarRentalService carRentalService) {
+    private AvisReservationService avisReservationService;
+
+    public CarRentalController(CarRentalService carRentalService, AvisReservationService avisReservationService) {
         this.carRentalService = carRentalService;
+        this.avisReservationService = avisReservationService;
     }
 
     @GetMapping("/locations/search")
@@ -77,6 +83,30 @@ public class CarRentalController {
         return "car-choose";
     }
 
+    @GetMapping("/cars/choose")
+    @ResponseBody
+    public AvisModelSessionDto carChoose(
+            @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
+            @RequestParam(name = "categoryName") String categoryName,
+            @RequestParam(name = "categoryMake") String categoryMake,
+            @RequestParam(name = "vehicleClassCode") String vehicleClassCode,
+            ModelMap modelMap) {
+        LOGGER.info("carChoose(" + categoryName + ")");
+        LOGGER.info("carChoose(" + categoryMake + ")");
+        LOGGER.info("carChoose(" + vehicleClassCode + ")");
+        LOGGER.info("carReservation(" + carReservationRequestDto + ")");
+        AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
+        if(avisModelSessionDto != null) {
+            avisModelSessionDto.setCategoryName(categoryName);
+            avisModelSessionDto.setCategoryMake(categoryMake);
+            avisModelSessionDto.setVehicleClassCode(vehicleClassCode);
+            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION,avisModelSessionDto);
+        }
+
+
+        return new AvisModelSessionDto();
+    }
+
     @PostMapping("/cars/reservation")
     public String carReservationView(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
@@ -88,6 +118,15 @@ public class CarRentalController {
         if(avisModelSessionDto != null) {
             //avisModelSessionDto.setAvisApiVehicle(avisApiVehicle);
             modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION,avisModelSessionDto);
+            LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
+            AvisApiReservationPostRequest apiReservation = new AvisApiReservationPostRequest();
+            try {
+                //TODO: stworzyc mapper zmieniajacy avisModelSessionDto na AvisApiReservationPostRequest
+                AvisApiReservationPostresponse reservations = avisReservationService.reservations(apiReservation);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
 
