@@ -15,6 +15,9 @@ public class AvisModelSessionDto {
     private String categoryMake;
     private String vehicleClassCode;
 
+    private String pickUpDate;
+    private String dropOffDate;
+
     private AvisApiLocation avisApiPickUpLocation;
     private AvisApiLocation avisApiDropOffLocation;
     private AvisApiVehicle avisApiVehicle;
