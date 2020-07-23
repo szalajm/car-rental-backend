@@ -3,10 +3,7 @@ package com.app.car.rental.backend.mapper.web;
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.location.Location;
 import com.app.car.rental.backend.api.avis.model.rate.AvisApiRate;
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.Rate;
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.RateTotals;
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.Reservation;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.*;
 import com.app.car.rental.backend.domain.web.AvisModelSessionDto;
 import com.app.car.rental.backend.mapper.avis.AvisApiRateMapper;
 import org.springframework.stereotype.Component;
@@ -43,10 +40,19 @@ public class AvisModelSessionDtoMapper {
 
         // RATE
         AvisApiRate dtoAvisApiRate = dto.getAvisApiRate();
+        Rate rate = avisApiRateMapper.toReservationRate(dtoAvisApiRate);
+
         RateTotals rateTotals = new RateTotals();
-        rateTotals.setRate(avisApiRateMapper.toReservationRate(dtoAvisApiRate));
+        rateTotals.setRate(rate);
         reservationPostRequest.setRateTotals(rateTotals);
 
+        //DISCOUNT
+//        Discount discount = new Discount();
+//        discount.setCode("A442100");
+//        rate.setDiscount(discount);
+
+//        Loyalty loyalty = new Loyalty();
+        //rate.setLoyalty(loyalty);
 
 
         return reservationPostRequest;

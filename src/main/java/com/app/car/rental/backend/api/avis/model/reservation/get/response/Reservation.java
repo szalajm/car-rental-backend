@@ -188,7 +188,20 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("confirmation", confirmation).append("distance", distance).append("pickupLocation", pickupLocation).append("dropoffLocation", dropoffLocation).append("extras", extras).append("rateTotals", rateTotals).append("insurance", insurance).append("arrivalFlight", arrivalFlight).append("passenger", passenger).append("vehicle", vehicle).append("specialFields", specialFields).append("terms", terms).append("additionalProperties", additionalProperties).toString();
+        return "Reservation{" +
+                "confirmation=" + confirmation +
+                ", distance=" + distance +
+                ", pickupLocation=" + pickupLocation +
+                ", dropoffLocation=" + dropoffLocation +
+                ", extras=" + extras +
+                ", rateTotals=" + rateTotals +
+                ", insurance=" + insurance +
+                ", arrivalFlight=" + arrivalFlight +
+                ", passenger=" + passenger +
+                ", vehicle=" + vehicle +
+                ", specialFields=" + specialFields +
+                ", terms=" + terms +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
-
 }

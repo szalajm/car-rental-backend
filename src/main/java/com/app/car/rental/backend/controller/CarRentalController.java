@@ -2,7 +2,7 @@ package com.app.car.rental.backend.controller;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
-import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostresponse;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.domain.web.AvisModelSessionDto;
 import com.app.car.rental.backend.domain.web.CarReservationRequestDto;
@@ -124,7 +124,7 @@ public class CarRentalController {
             LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
             try {
                 AvisApiReservationPostRequest apiReservation = avisModelSessionDtoMapper.from(avisModelSessionDto);
-                AvisApiReservationPostresponse reservations = avisReservationService.reservations(apiReservation);
+                AvisApiReservationPostResponse reservations = avisReservationService.reservations(apiReservation);
             } catch (Exception e) {
                 e.printStackTrace();
             }

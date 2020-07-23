@@ -1,7 +1,7 @@
 package com.app.car.rental.backend.service;
 
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.*;
-import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostresponse;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +43,19 @@ public class AvisReservationRequestServiceTest {
         Rate rate = new Rate();
         rate.setRateCode("DH");
         rate.setCountryCode("US");
-        rateTotals.setRate(rate);
 
         Discount discount = new Discount();
         discount.setCode("A442100");
-        rate.setDiscount(discount);
+        //rate.setDiscount(discount);
 
         Loyalty loyalty = new Loyalty();
-        rate.setLoyalty(loyalty);
+        //rate.setLoyalty(loyalty);
 
         Membership membership = new Membership();
         membership.setCode("E7L15V");
-        rate.setMembership(membership);
+        //rate.setMembership(membership);
 
+        rateTotals.setRate(rate);
         apiReservation.setRateTotals(rateTotals);
 
         Passenger passenger = new Passenger();
@@ -106,7 +106,7 @@ public class AvisReservationRequestServiceTest {
         //apiReservation.set
 
         //When
-        AvisApiReservationPostresponse reservations = avisReservationService.reservations(apiReservation);
+        AvisApiReservationPostResponse reservations = avisReservationService.reservations(apiReservation);
         System.out.println(reservations);
 
         //Then

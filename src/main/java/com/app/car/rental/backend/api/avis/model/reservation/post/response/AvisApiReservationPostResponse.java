@@ -18,7 +18,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
     "product",
     "reservation"
 })
-public class AvisApiReservationPostresponse {
+public class AvisApiReservationPostResponse {
 
     @JsonProperty("status")
     private Status status;
@@ -83,7 +83,12 @@ public class AvisApiReservationPostresponse {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("status", status).append("transaction", transaction).append("product", product).append("reservation", reservation).append("additionalProperties", additionalProperties).toString();
+        return "AvisApiReservationPostResponse{" +
+                "status=" + status +
+                ", transaction=" + transaction +
+                ", product=" + product +
+                ", reservation=" + reservation +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
-
 }

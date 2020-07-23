@@ -70,7 +70,11 @@ public class Confirmation {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("number", number).append("pickupDate", pickupDate).append("dropoffDate", dropoffDate).append("additionalProperties", additionalProperties).toString();
+        return "Confirmation{" +
+                "number='" + number + '\'' +
+                ", pickupDate='" + pickupDate + '\'' +
+                ", dropoffDate='" + dropoffDate + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
-
 }

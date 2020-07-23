@@ -1,7 +1,7 @@
 package com.app.car.rental.backend.service;
 
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
-import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostresponse;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
@@ -22,7 +22,7 @@ public class AvisReservationService {
         this.avisTokenService = avisTokenService;
     }
 
-    public AvisApiReservationPostresponse reservations(AvisApiReservationPostRequest avisApiReservation) throws Exception { //TODO : poprawna obsluga wlasnych wyjatkow
+    public AvisApiReservationPostResponse reservations(AvisApiReservationPostRequest avisApiReservation) throws Exception { //TODO : poprawna obsluga wlasnych wyjatkow
         AvisApiToken avisApiToken = avisTokenService.token();
         String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
 
@@ -42,7 +42,7 @@ public class AvisReservationService {
         String serverUrl = "https://stage.abgapiservices.com/cars/reservation/v1";
 
         //ResponseEntity<AvisApiReservationPostRequest> response = restTemplate.exchange(serverUrl, HttpMethod.POST, requestEntity, AvisApiReservationPostRequest.class);
-        ResponseEntity<AvisApiReservationPostresponse> response = restTemplate.postForEntity(serverUrl, requestEntity, AvisApiReservationPostresponse.class);
+        ResponseEntity<AvisApiReservationPostResponse> response = restTemplate.postForEntity(serverUrl, requestEntity, AvisApiReservationPostResponse.class);
         LOGGER.info("" + response.getBody());
 
         return response.getBody();
