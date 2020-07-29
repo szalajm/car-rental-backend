@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.service;
+package com.app.car.rental.backend.service.mapper.avis;
 
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.*;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;

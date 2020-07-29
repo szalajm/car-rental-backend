@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.service;
+package com.app.car.rental.backend.service.mapper.avis;
 
 import com.app.car.rental.backend.web.model.LocationSearchRequestDto;
 import com.app.car.rental.backend.service.avis.AvisVehicleService;
