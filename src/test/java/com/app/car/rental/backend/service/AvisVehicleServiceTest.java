@@ -1,6 +1,7 @@
 package com.app.car.rental.backend.service;
 
-import com.app.car.rental.backend.domain.web.LocationSearchRequestDto;
+import com.app.car.rental.backend.web.model.LocationSearchRequestDto;
+import com.app.car.rental.backend.service.avis.AvisVehicleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
