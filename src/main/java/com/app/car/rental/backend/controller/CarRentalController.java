@@ -8,7 +8,7 @@ import com.app.car.rental.backend.domain.web.AvisModelSessionDto;
 import com.app.car.rental.backend.domain.web.CarReservationRequestDto;
 import com.app.car.rental.backend.domain.web.LocationSearchRequestDto;
 import com.app.car.rental.backend.mapper.web.AvisModelSessionDtoMapper;
-import com.app.car.rental.backend.service.AvisReservationService;
+import com.app.car.rental.backend.service.avis.AvisReservationService;
 import com.app.car.rental.backend.service.CarRentalService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

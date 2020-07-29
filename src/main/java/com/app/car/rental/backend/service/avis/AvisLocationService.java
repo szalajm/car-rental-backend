@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.service;
+package com.app.car.rental.backend.service.avis;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;

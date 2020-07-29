@@ -1,5 +1,6 @@
 package com.app.car.rental.backend.service;
 
+import com.app.car.rental.backend.service.avis.AvisRateService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
