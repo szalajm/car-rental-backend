@@ -4,15 +4,23 @@ import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
+import com.app.car.rental.backend.service.CarRentalService;
+import com.app.car.rental.backend.service.avis.AvisReservationService;
+import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
+import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostResponseMapper;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
+import com.app.car.rental.backend.web.model.ReservationDto;
 import com.app.car.rental.backend.web.model.request.CarReservationRequestDto;
 import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
-import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
-import com.app.car.rental.backend.service.avis.AvisReservationService;
-import com.app.car.rental.backend.service.CarRentalService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.logging.Logger;
 
@@ -26,12 +34,15 @@ public class CarRentalController {
     private CarRentalService carRentalService;
     private AvisReservationService avisReservationService;
     private AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper;
+    private AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper;
 
     public CarRentalController(CarRentalService carRentalService, AvisReservationService avisReservationService,
-                               AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper) {
+                               AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper,
+                               AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper) {
         this.carRentalService = carRentalService;
         this.avisReservationService = avisReservationService;
         this.avisApiReservationPostRequestMapper = avisApiReservationPostRequestMapper;
+        this.avisApiReservationPostResponseMapper = avisApiReservationPostResponseMapper;
     }
 
     @GetMapping("/locations/search")
@@ -125,15 +136,15 @@ public class CarRentalController {
             try {
                 AvisApiReservationPostRequest apiReservation = avisApiReservationPostRequestMapper.from(avisModelSessionDto);
                 AvisApiReservationPostResponse reservations = avisReservationService.reservations(apiReservation);
+
+                ReservationDto reservationDto = avisApiReservationPostResponseMapper.from(reservations);
+                // TODO: add and implement ReservationService!
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-
 
         return "car-reservation";
     }
-
 
 }
