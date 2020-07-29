@@ -1,6 +1,7 @@
 package com.app.car.rental.backend.service.mapper.web;
 
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
+import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiRateMapper;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-class AvisModelSessionDtoMapperTest {
+class AvisApiReservationPostRequestMapperTest {
 
     @Autowired
     private AvisApiRateMapper avisApiRateMapper;
@@ -18,7 +19,7 @@ class AvisModelSessionDtoMapperTest {
     @Test
     void givenSessionDto_whenMapperMap_thenPostRequestNotNull() {
         // given
-        AvisModelSessionDtoMapper mapper = new AvisModelSessionDtoMapper(avisApiRateMapper);
+        AvisApiReservationPostRequestMapper mapper = new AvisApiReservationPostRequestMapper(avisApiRateMapper);
         AvisModelSessionDto sessionDto = new AvisModelSessionDto();
         // when
         AvisApiReservationPostRequest reservationPostRequest = mapper.from(sessionDto);

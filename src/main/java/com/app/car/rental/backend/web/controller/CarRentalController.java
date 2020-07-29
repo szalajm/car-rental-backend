@@ -5,9 +5,9 @@ import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisAp
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
-import com.app.car.rental.backend.web.model.CarReservationRequestDto;
-import com.app.car.rental.backend.web.model.LocationSearchRequestDto;
-import com.app.car.rental.backend.service.mapper.web.AvisModelSessionDtoMapper;
+import com.app.car.rental.backend.web.model.request.CarReservationRequestDto;
+import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
+import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
 import com.app.car.rental.backend.service.avis.AvisReservationService;
 import com.app.car.rental.backend.service.CarRentalService;
 import org.springframework.stereotype.Controller;
@@ -25,13 +25,13 @@ public class CarRentalController {
 
     private CarRentalService carRentalService;
     private AvisReservationService avisReservationService;
-    private AvisModelSessionDtoMapper avisModelSessionDtoMapper;
+    private AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper;
 
     public CarRentalController(CarRentalService carRentalService, AvisReservationService avisReservationService,
-                               AvisModelSessionDtoMapper avisModelSessionDtoMapper) {
+                               AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper) {
         this.carRentalService = carRentalService;
         this.avisReservationService = avisReservationService;
-        this.avisModelSessionDtoMapper = avisModelSessionDtoMapper;
+        this.avisApiReservationPostRequestMapper = avisApiReservationPostRequestMapper;
     }
 
     @GetMapping("/locations/search")
@@ -123,7 +123,7 @@ public class CarRentalController {
             modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION,avisModelSessionDto);
             LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
             try {
-                AvisApiReservationPostRequest apiReservation = avisModelSessionDtoMapper.from(avisModelSessionDto);
+                AvisApiReservationPostRequest apiReservation = avisApiReservationPostRequestMapper.from(avisModelSessionDto);
                 AvisApiReservationPostResponse reservations = avisReservationService.reservations(apiReservation);
             } catch (Exception e) {
                 e.printStackTrace();

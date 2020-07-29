@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.web.model;
+package com.app.car.rental.backend.web.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarChooseRequestDto {
-    private Long id;
+public class CarReservationResponseDto {
+
 }

@@ -3,7 +3,7 @@ package com.app.car.rental.backend.service.avis;
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.web.controller.RestTemplateResponseErrorHandler;
-import com.app.car.rental.backend.web.model.LocationSearchRequestDto;
+import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

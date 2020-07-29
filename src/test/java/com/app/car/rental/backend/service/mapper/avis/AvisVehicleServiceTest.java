@@ -1,6 +1,6 @@
 package com.app.car.rental.backend.service.mapper.avis;
 
-import com.app.car.rental.backend.web.model.LocationSearchRequestDto;
+import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
 import com.app.car.rental.backend.service.avis.AvisVehicleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

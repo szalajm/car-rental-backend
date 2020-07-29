@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.web.model;
+package com.app.car.rental.backend.web.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

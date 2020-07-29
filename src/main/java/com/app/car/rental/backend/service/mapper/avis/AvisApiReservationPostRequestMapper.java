@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.service.mapper.web;
+package com.app.car.rental.backend.service.mapper.avis;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.location.Location;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class AvisModelSessionDtoMapper {
+public class AvisApiReservationPostRequestMapper {
 
     private AvisApiRateMapper avisApiRateMapper;
 
-    public AvisModelSessionDtoMapper(AvisApiRateMapper avisApiRateMapper) {
+    public AvisApiReservationPostRequestMapper(AvisApiRateMapper avisApiRateMapper) {
         this.avisApiRateMapper = avisApiRateMapper;
     }
 

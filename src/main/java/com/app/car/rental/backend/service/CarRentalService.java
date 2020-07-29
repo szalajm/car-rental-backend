@@ -2,7 +2,7 @@ package com.app.car.rental.backend.service;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
-import com.app.car.rental.backend.web.model.LocationSearchRequestDto;
+import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
 import com.app.car.rental.backend.service.avis.AvisLocationService;
 import com.app.car.rental.backend.service.avis.AvisVehicleService;
 import org.springframework.stereotype.Service;
