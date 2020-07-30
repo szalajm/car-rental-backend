@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Wybor samochodu</title>
+    <title>Wybor samochodu - car-choose.html</title>
     <link href="/css/car-choose.css" rel="stylesheet"/>
 
 </head>
@@ -23,14 +23,17 @@
                 <tbody>
                 <tr th:each="vehicle, stat : ${vehicles}">
                     <!--                <th scope="row"><input type="radio" name="vehicle" th:value="${vehicle}"></th>-->
-                    <th scope="row"><input type="radio" name="vehicle" th:value="${vehicles[__${stat.index}__]}" /></th>
+                    <th scope="row">
+<!--                        <input type="radio" name="vehicle" th:value="${vehicles[__${stat.index}__]}" />-->
+                    </th>
                     <td>
-                        <div>
-                            <div class="chosenCar" th:text="${vehicle.category.name}"></div>
-                            <input type="hidden" name="categoryName" th:value="${vehicle.category.name}">
-                            <input type="hidden" name="vehicleClassCode" th:field="*{vehicleClassCode}" th:value="${vehicle.category.vehicleClassCode}">
+                        <div class="chooseCar">
+                            <div th:text="${vehicle.category.name}"></div>
                             <div th:text="${vehicle.category.make}"></div>
-                            <input type="hidden" th:field="*{categoryMake}">
+
+                            <input type="hidden" name="categoryName" th:value="${vehicle.category.name}">
+                            <input type="hidden" name="vehicleClassCode" th:value="${vehicle.category.vehicleClassCode}">
+                            <input type="hidden" name="categoryMake" th:value="${vehicle.category.make}">
                         </div>
                     </td>
                 </tr>
@@ -40,38 +43,6 @@
                 <!--                                <a href="#" th:href="@{/v1/rental/cars/reservation}">rezerwuj</a>-->
                 <button type="submit">rezerwuj</button>
             </div>
-            <!--
-            "category": {
-                            "name": "Group A - Fiat 500 or similar",
-                            "make": "Fiat",
-                            "model": "500",
-                            "sipp_code": "ECMR",
-                            "vehicle_class_code": "A",
-                            "vehicle_class_name": "Mini Manual",
-                            "vehicle_transmission": "Manual",
-                            "image_url": "https://www.avis.com/content/dam/cars/l/2014/fiat/2014-fiat-500-lounge-hatchback-black.png"
-                        },
-
-                        "capacity": {
-                            "doors": "2",
-                            "seats": "4",
-                            "luggage_capacity": {
-                                "large_suitcase": "1"
-                            }
-
-                             "rate_totals": {
-                            "rate": {
-                                "currency": "PLN",
-                                "rate_code": "7JI",
-                                "coupon_applied": false,
-                                "under_age_fee_applied": false,
-                                "coupon_discount_amount": 0.0
-                            },
-                            "pay_later": {
-                                "vehicle_total": 543.67,
-                                "reservation_total": 641.53
-                            }
-            -->
         </div>
     </form>
 </div>
