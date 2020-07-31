@@ -21,6 +21,6 @@ public class CategoryDto {
     private String vehicleClassCode;
     private String vehicleClassName;
     private String imageUrl;
-    private Map<String, Object> additionalProperties = new HashMap<>();
+//    private Map<String, Object> additionalProperties = new HashMap<>();
 
 }
