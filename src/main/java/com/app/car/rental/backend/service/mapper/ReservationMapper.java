@@ -15,4 +15,13 @@ public class ReservationMapper {
 
         return reservationEntity;
     }
+
+    public ReservationDto to(ReservationEntity reservationEntity) {
+        ReservationDto reservationDto = new ReservationDto();
+
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(reservationEntity, reservationDto);
+
+        return reservationDto;
+    }
 }

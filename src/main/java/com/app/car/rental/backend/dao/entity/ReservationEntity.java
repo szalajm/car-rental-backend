@@ -1,5 +1,6 @@
 package com.app.car.rental.backend.dao.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class ReservationEntity {
 //    private RateTotalsDto rateTotals;
 //    private List<InsuranceDto> insurance = null;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "VEHICLE_ID", unique = true, nullable = false, updatable = false)
     private VehicleEntity vehicle;
 
@@ -29,6 +30,22 @@ public class ReservationEntity {
 //    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public ReservationEntity() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public VehicleEntity getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(VehicleEntity vehicle) {
+        this.vehicle = vehicle;
+    }
 
     @Override
     public String toString() {
