@@ -5,6 +5,7 @@ import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisAp
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.service.CarRentalService;
+import com.app.car.rental.backend.service.ReservationService;
 import com.app.car.rental.backend.service.avis.AvisReservationService;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostResponseMapper;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.logging.Logger;
 
+import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATIONS_ATTRIBUTE;
+
 @Controller
 @RequestMapping("/v1/rental")
 @SessionAttributes(names = {ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION})
@@ -32,14 +35,18 @@ public class CarRentalController {
     private static final Logger LOGGER = Logger.getLogger(CarRentalController.class.getName());
 
     private CarRentalService carRentalService;
+    private ReservationService reservationService;
+
     private AvisReservationService avisReservationService;
     private AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper;
     private AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper;
 
-    public CarRentalController(CarRentalService carRentalService, AvisReservationService avisReservationService,
+    public CarRentalController(CarRentalService carRentalService, ReservationService reservationService,
+                               AvisReservationService avisReservationService,
                                AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper,
                                AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper) {
         this.carRentalService = carRentalService;
+        this.reservationService = reservationService;
         this.avisReservationService = avisReservationService;
         this.avisApiReservationPostRequestMapper = avisApiReservationPostRequestMapper;
         this.avisApiReservationPostResponseMapper = avisApiReservationPostResponseMapper;
@@ -138,7 +145,7 @@ public class CarRentalController {
                 AvisApiReservationPostResponse reservations = avisReservationService.reservations(apiReservation);
 
                 ReservationDto reservationDto = avisApiReservationPostResponseMapper.from(reservations);
-                // TODO: add and implement ReservationService!
+                reservationService.create(reservationDto);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -147,4 +154,12 @@ public class CarRentalController {
         return "car-reservation";
     }
 
+    @GetMapping("/reservations")
+    public String carReservationsView(ModelMap modelMap) {
+        LOGGER.info("Listing reservations...");
+
+        modelMap.addAttribute(RESERVATIONS_ATTRIBUTE, reservationService.list());
+
+        return "reservations";
+    }
 }
