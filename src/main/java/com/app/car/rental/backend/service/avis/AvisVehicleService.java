@@ -54,9 +54,9 @@ public class AvisVehicleService {
                 // Add query parameter
                 .queryParam("brand", "Avis")
                 //.queryParam("pickup_date", locationSearchRequestDto.getPickUpDate())
-                .queryParam("pickup_date", URLEncoder.encode("2020-08-05T12:00:00"))
+                .queryParam("pickup_date", URLEncoder.encode("2020-10-05T12:00:00"))
                 .queryParam("pickup_location", locationSearchRequestDto.getPickUpLocation())
-                .queryParam("dropoff_date", URLEncoder.encode("2020-08-07T12:00:00"))
+                .queryParam("dropoff_date", URLEncoder.encode("2020-10-07T12:00:00"))
                 //.queryParam("dropoff_date", locationSearchRequestDto.getDropOffDate())
                 .queryParam("dropoff_location", locationSearchRequestDto.getDropOffLocation())
                 .queryParam("country_code", "PL")
