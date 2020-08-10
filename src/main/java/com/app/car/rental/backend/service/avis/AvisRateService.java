@@ -2,6 +2,7 @@ package com.app.car.rental.backend.service.avis;
 
 import com.app.car.rental.backend.api.avis.model.rate.AvisApiRate;
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;
+import com.app.car.rental.backend.web.model.request.RateRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,9 +20,9 @@ public class AvisRateService {
     public static final Logger LOGGER = Logger.getLogger(AvisRateService.class.getName());
 
     @Autowired
-    public AvisTokenService avisTokenService;
+    private AvisTokenService avisTokenService;
 
-    public AvisApiRate rates(){
+    public AvisApiRate rates(RateRequestDto rateRequestDto){
 
         AvisApiToken avisApiToken = avisTokenService.token();
         String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
