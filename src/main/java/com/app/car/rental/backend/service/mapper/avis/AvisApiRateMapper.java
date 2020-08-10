@@ -17,18 +17,19 @@ public class AvisApiRateMapper {
                 RateTotals reservationRateTotals = reservation.getRateTotals();
                 if (reservationRateTotals != null) {
                     com.app.car.rental.backend.api.avis.model.rate.Rate rate = reservationRateTotals.getRate();
-                    reservationRate.setRateCode(rate.getRateCode());
+//                    reservationRate.setRateCode(rate.getRateCode());
 //                    reservationRate.setCountryCode(rate.getRateCode());
 
                     // FIXME: remove!
-//                    reservationRate.setRateCode("DH");
-//                    reservationRate.setCountryCode("US");
+                    reservationRate.setRateCode("DH");
+                    reservationRate.setCountryCode("US");
                 }
             }
         }
 
-//        reservationRate.setRateCode("DH");
-//        reservationRate.setCountryCode("US");
+        // FIXME: remove!
+        reservationRate.setRateCode("DH");
+        reservationRate.setCountryCode("US");
 
         return reservationRate;
     }
