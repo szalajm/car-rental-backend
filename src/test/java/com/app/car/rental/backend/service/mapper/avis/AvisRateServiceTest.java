@@ -1,6 +1,7 @@
 package com.app.car.rental.backend.service.mapper.avis;
 
 import com.app.car.rental.backend.service.avis.AvisRateService;
+import com.app.car.rental.backend.web.model.request.RateRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,9 @@ public class AvisRateServiceTest {
     private AvisRateService avisRateService;
 
     @Test
-    public void rates(){
-       avisRateService.rates();
+    public void rates() {
+        RateRequestDto rateRequestDto = new RateRequestDto();
+        avisRateService.rates(rateRequestDto);
     }
 
 }

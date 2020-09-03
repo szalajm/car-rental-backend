@@ -15,10 +15,13 @@ public class ReservationService {
 
     private ReservationRepository reservationRepository;
     private ReservationMapper reservationMapper;
+    private RateService rateService;
 
-    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper) {
+    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper,
+                              RateService rateService) {
         this.reservationRepository = reservationRepository;
         this.reservationMapper = reservationMapper;
+        this.rateService = rateService;
     }
 
     public List<ReservationDto> list() {
