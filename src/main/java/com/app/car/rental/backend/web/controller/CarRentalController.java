@@ -10,6 +10,7 @@ import com.app.car.rental.backend.service.avis.AvisReservationService;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostResponseMapper;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
+import com.app.car.rental.backend.web.model.PassengerDataDto;
 import com.app.car.rental.backend.web.model.ReservationDto;
 import com.app.car.rental.backend.web.model.request.CarReservationRequestDto;
 import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
@@ -32,15 +33,13 @@ import static com.app.car.rental.backend.web.controller.ControllerConstants.RESE
 @SessionAttributes(names = {ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION})
 public class CarRentalController {
 
-
     private static final Logger LOGGER = Logger.getLogger(CarRentalController.class.getName());
 
     private CarRentalService carRentalService;
-    private ReservationService reservationService;
-
     private AvisReservationService avisReservationService;
     private AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper;
     private AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper;
+    private ReservationService reservationService;
 
     public CarRentalController(CarRentalService carRentalService, ReservationService reservationService,
                                AvisReservationService avisReservationService,
@@ -94,19 +93,23 @@ public class CarRentalController {
         LOGGER.info("locationSearchRequestDto: " + locationSearchRequestDto);
         AvisApiVehicle avisApiVehicle = carRentalService.carSearch(locationSearchRequestDto);
         AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
-        if(avisModelSessionDto != null) {
+        if (avisModelSessionDto != null) {
             avisModelSessionDto.setAvisApiVehicle(avisApiVehicle);
-            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION,avisModelSessionDto);
+            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
         }
         LOGGER.info("avisApiVehicle: " + avisApiVehicle);
         LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
         modelMap.addAttribute("vehicles", avisApiVehicle.getVehicles());
         modelMap.addAttribute("carReservation", new CarReservationRequestDto());
+
+        modelMap.addAttribute("passengerData", new PassengerDataDto());
+
         return "car-choose";
     }
 
     @GetMapping("/cars/choose")
     @ResponseBody
+    //NOTE: uzywane w js przy klikniecie na samochod
     public AvisModelSessionDto carChoose(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
             @RequestParam(name = "categoryName") String categoryName,
@@ -118,11 +121,11 @@ public class CarRentalController {
         LOGGER.info("carChoose(" + vehicleClassCode + ")");
         LOGGER.info("carReservation(" + carReservationRequestDto + ")");
         AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
-        if(avisModelSessionDto != null) {
+        if (avisModelSessionDto != null) {
             avisModelSessionDto.setCategoryName(categoryName);
             avisModelSessionDto.setCategoryMake(categoryMake);
             avisModelSessionDto.setVehicleClassCode(vehicleClassCode);
-            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION,avisModelSessionDto);
+            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
         }
 
 
@@ -153,6 +156,32 @@ public class CarRentalController {
         }
 
         return "car-reservation";
+    }
+
+    @GetMapping("/passenger/data")
+    public String passengerDataView(@ModelAttribute(name = "passengerData") PassengerDataDto passengerDataDto,
+                                    ModelMap modelMap) {
+        AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
+        if (avisModelSessionDto != null) {
+            avisModelSessionDto.setPassengerDataDto(passengerDataDto);
+            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
+
+        }
+        return "passenger-data";
+    }
+
+    @PostMapping("/confirmation")
+    //@ModelAttribute("session_atribute")
+    public String confirmationData(@ModelAttribute(name = "passengerData") PassengerDataDto mocker, ModelMap modelMap) {
+
+        AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
+        if (avisModelSessionDto != null) {
+            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
+            modelMap.addAttribute("link", avisModelSessionDto);
+        }
+        modelMap.addAttribute("name", "name");
+
+        return "reservation-confirmation";
     }
 
     @GetMapping("/reservations")

@@ -62,13 +62,13 @@ public class AvisReservationRequestServiceTest {
         Passenger passenger = new Passenger();
 
         Contact contact = new Contact();
-        contact.setTitle("MR");
+        //contact.setTitle("MR");
         contact.setFirstName("BRADLEY");
         contact.setLastName("STEPHEN");
-        contact.setTelephone("123456789900000");
-        contact.setEmail("BRADLEY.STEPHEN@abgservices.com");
-        contact.setAge(28);
-        contact.setDateOfBirth("1991-12-31");
+        //contact.setTelephone("123456789900000");
+        //contact.setEmail("BRADLEY.STEPHEN@abgservices.com");
+        //contact.setAge(28);
+        //contact.setDateOfBirth("1991-12-31");
         passenger.setContact(contact);
 
         Address address = new Address();
@@ -79,29 +79,29 @@ public class AvisReservationRequestServiceTest {
         address.setStateName("CA");
         address.setPostalCode("94110");
         address.setCountryCode("US");
-        passenger.setAddress(address);
+        //passenger.setAddress(address);
 
         Driver driver = new Driver();
         driver.setLicenseNumber("DI9000");
         driver.setStateCode("CA");
         driver.setCountryCode("US");
-        passenger.setDriver(driver);
+        //passenger.setDriver(driver);
 
         apiReservation.setPassenger(passenger);
 
         Insurance insurance = new Insurance();
         insurance.setCode("PEP");
-        apiReservation.setInsurance(Arrays.asList(insurance));
+        //apiReservation.setInsurance(Arrays.asList(insurance));
 
         Extra extra = new Extra();
         extra.setCode("GPS");
         extra.setQuantity(1);
-        apiReservation.setExtras(Arrays.asList(extra));
+        //apiReservation.setExtras(Arrays.asList(extra));
 
         ArrivalFlight arrivalFlight = new ArrivalFlight();
         arrivalFlight.setAirlineCode("BA");
         arrivalFlight.setAirlineNumber("349723");
-        apiReservation.setArrivalFlight(arrivalFlight);
+        //apiReservation.setArrivalFlight(arrivalFlight);
 
 
         //apiReservation.set

@@ -22,4 +22,6 @@ public class AvisModelSessionDto {
     private AvisApiLocation avisApiDropOffLocation;
     private AvisApiVehicle avisApiVehicle;
     private AvisApiRate avisApiRate;
+
+    private PassengerDataDto passengerDataDto;
 }
