@@ -32,6 +32,7 @@ import static com.app.car.rental.backend.web.controller.ControllerConstants.RESE
 @SessionAttributes(names = {ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION})
 public class CarRentalController {
 
+
     private static final Logger LOGGER = Logger.getLogger(CarRentalController.class.getName());
 
     private CarRentalService carRentalService;
