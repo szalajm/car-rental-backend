@@ -112,23 +112,17 @@ public class CarRentalController {
     //NOTE: uzywane w js przy klikniecie na samochod
     public AvisModelSessionDto carChoose(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
-            @RequestParam(name = "categoryName") String categoryName,
-            @RequestParam(name = "categoryMake") String categoryMake,
-            @RequestParam(name = "vehicleClassCode") String vehicleClassCode,
+            @RequestParam(name = "vehicleId") String vehicleId,
             ModelMap modelMap) {
-        LOGGER.info("carChoose(" + categoryName + ")");
-        LOGGER.info("carChoose(" + categoryMake + ")");
-        LOGGER.info("carChoose(" + vehicleClassCode + ")");
+        LOGGER.info("carChoose(" + vehicleId + ")");
         LOGGER.info("carReservation(" + carReservationRequestDto + ")");
         AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
         if (avisModelSessionDto != null) {
-            avisModelSessionDto.setCategoryName(categoryName);
-            avisModelSessionDto.setCategoryMake(categoryMake);
-            avisModelSessionDto.setVehicleClassCode(vehicleClassCode);
+            avisModelSessionDto.setVehicleId(vehicleId);
             modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
         }
 
-
+        // NOTE: needs to return sth
         return new AvisModelSessionDto();
     }
 

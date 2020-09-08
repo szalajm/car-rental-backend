@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AvisModelSessionDto {
-    private String categoryName;
-    private String categoryMake;
-    private String vehicleClassCode;
+    private String vehicleId;
 
     private String pickUpDate;
     private String dropOffDate;

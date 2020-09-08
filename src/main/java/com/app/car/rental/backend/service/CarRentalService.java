@@ -2,6 +2,7 @@ package com.app.car.rental.backend.service;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
+import com.app.car.rental.backend.service.util.AvisApiVehicleUtil;
 import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
 import com.app.car.rental.backend.service.avis.AvisLocationService;
 import com.app.car.rental.backend.service.avis.AvisVehicleService;
@@ -25,6 +26,9 @@ public class CarRentalService {
     }
 
     public AvisApiVehicle carSearch(LocationSearchRequestDto locationSearchRequestDto) {
-        return avisVehicleService.vehicles(locationSearchRequestDto);
+        AvisApiVehicle avisApiVehicle = avisVehicleService.vehicles(locationSearchRequestDto);
+        AvisApiVehicleUtil.fillWithUniqueId(avisApiVehicle);
+
+        return avisApiVehicle;
     }
 }
