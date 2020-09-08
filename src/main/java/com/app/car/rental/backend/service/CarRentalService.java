@@ -22,7 +22,6 @@ public class CarRentalService {
 
     public AvisApiLocation locationSearch(String location) {
         return avisLocationService.locations(location);
-
     }
 
     public AvisApiVehicle carSearch(LocationSearchRequestDto locationSearchRequestDto) {

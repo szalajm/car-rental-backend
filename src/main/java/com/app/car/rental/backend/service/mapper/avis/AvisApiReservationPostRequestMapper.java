@@ -18,6 +18,7 @@ import com.app.car.rental.backend.api.avis.model.reservation.post.request.Produc
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Rate;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.RateTotals;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Reservation;
+import com.app.car.rental.backend.api.avis.model.vehicle.Vehicle;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,9 @@ public class AvisApiReservationPostRequestMapper {
     public AvisApiReservationPostRequest from(AvisModelSessionDto dto) {
         AvisApiReservationPostRequest reservationPostRequest = new AvisApiReservationPostRequest();
 
+        Vehicle chosenAvisApiVehicle = dto.getChosenVehicle();
+        chosenAvisApiVehicle.getRateTotals();
+
 //        reservationPostRequest.set -> dto.get
         AvisApiLocation avisApiPickUpLocation = dto.getAvisApiPickUpLocation();
         String pickUpLocationCode = extractLocationCode(avisApiPickUpLocation);
@@ -49,9 +53,9 @@ public class AvisApiReservationPostRequestMapper {
         // RESERVATION
         Reservation reservation = new Reservation();
         reservation.setEmailNotification(true);
-        reservation.setDropoffDate("2020-08-20T12:00:00");
+        reservation.setDropoffDate("2020-10-20T12:00:00");
 //        reservation.setDropoffDate(dto.getDropOffDate());
-        reservation.setPickupDate("2020-08-18T12:00:00");
+        reservation.setPickupDate("2020-10-18T12:00:00");
 //        reservation.setPickupDate(dto.getPickUpDate());
         reservation.setPickupLocation("EWR");
 //        reservation.setPickupLocation(pickUpLocationCode);

@@ -1,14 +1,10 @@
 package com.app.car.rental.backend.web.controller;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
-import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.service.CarRentalService;
+import com.app.car.rental.backend.service.ReservationManagerService;
 import com.app.car.rental.backend.service.ReservationService;
-import com.app.car.rental.backend.service.avis.AvisReservationService;
-import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
-import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostResponseMapper;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
 import com.app.car.rental.backend.web.model.PassengerDataDto;
 import com.app.car.rental.backend.web.model.ReservationDto;
@@ -36,20 +32,15 @@ public class CarRentalController {
     private static final Logger LOGGER = Logger.getLogger(CarRentalController.class.getName());
 
     private CarRentalService carRentalService;
-    private AvisReservationService avisReservationService;
-    private AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper;
-    private AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper;
     private ReservationService reservationService;
+    private ReservationManagerService reservationManagerService;
 
-    public CarRentalController(CarRentalService carRentalService, ReservationService reservationService,
-                               AvisReservationService avisReservationService,
-                               AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper,
-                               AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper) {
+    public CarRentalController(CarRentalService carRentalService,
+                               ReservationService reservationService,
+                               ReservationManagerService reservationManagerService) {
         this.carRentalService = carRentalService;
         this.reservationService = reservationService;
-        this.avisReservationService = avisReservationService;
-        this.avisApiReservationPostRequestMapper = avisApiReservationPostRequestMapper;
-        this.avisApiReservationPostResponseMapper = avisApiReservationPostResponseMapper;
+        this.reservationManagerService = reservationManagerService;
     }
 
     @GetMapping("/locations/search")
@@ -129,20 +120,17 @@ public class CarRentalController {
     @PostMapping("/cars/reservation")
     public String carReservationView(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
-//            @RequestBody CarReservationVehicleRequestDto carReservationRequestDto,
             ModelMap modelMap) {
         LOGGER.info("carReservationView");
         LOGGER.info("carReservationRequestDto: " + carReservationRequestDto);
+
         AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
         if(avisModelSessionDto != null) {
-            //avisModelSessionDto.setAvisApiVehicle(avisApiVehicle);
-            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION,avisModelSessionDto);
+            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
             LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
-            try {
-                AvisApiReservationPostRequest apiReservation = avisApiReservationPostRequestMapper.from(avisModelSessionDto);
-                AvisApiReservationPostResponse reservations = avisReservationService.reservations(apiReservation);
 
-                ReservationDto reservationDto = avisApiReservationPostResponseMapper.from(reservations);
+            try {
+                ReservationDto reservationDto = reservationManagerService.reserve(carReservationRequestDto, avisModelSessionDto);
                 reservationService.create(reservationDto);
             } catch (Exception e) {
                 e.printStackTrace();
