@@ -29,16 +29,18 @@ import java.util.List;
 public class AvisApiReservationPostRequestMapper {
 
     private AvisApiRateMapper avisApiRateMapper;
+    private AvisApiVehicleMapper avisApiVehicleMapper;
 
-    public AvisApiReservationPostRequestMapper(AvisApiRateMapper avisApiRateMapper) {
+    public AvisApiReservationPostRequestMapper(AvisApiRateMapper avisApiRateMapper, AvisApiVehicleMapper avisApiVehicleMapper) {
         this.avisApiRateMapper = avisApiRateMapper;
+        this.avisApiVehicleMapper = avisApiVehicleMapper;
     }
 
     public AvisApiReservationPostRequest from(AvisModelSessionDto dto) {
         AvisApiReservationPostRequest reservationPostRequest = new AvisApiReservationPostRequest();
 
         Vehicle chosenAvisApiVehicle = dto.getChosenVehicle();
-        chosenAvisApiVehicle.getRateTotals();
+
 
 //        reservationPostRequest.set -> dto.get
         AvisApiLocation avisApiPickUpLocation = dto.getAvisApiPickUpLocation();
@@ -73,7 +75,9 @@ public class AvisApiReservationPostRequestMapper {
 
         // RATE
         AvisApiRate dtoAvisApiRate = dto.getAvisApiRate();
-        Rate rate = avisApiRateMapper.toReservationRate(dtoAvisApiRate);
+//        Rate rate = avisApiRateMapper.toReservationRate(dtoAvisApiRate);
+        // FIXME: verify the below mapping!
+        Rate rate = avisApiVehicleMapper.toReservationRate(chosenAvisApiVehicle);
 
         // DISCOUNT
         // FIXME: implement Discount Mapper! Added only to showcase saved Reservations!
