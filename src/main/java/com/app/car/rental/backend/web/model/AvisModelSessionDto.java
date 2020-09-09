@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AvisModelSessionDto {
-    private String vehicleId;
+    private String chosenVehicleId;
     private Vehicle chosenVehicle;
 
     private String pickUpDate;

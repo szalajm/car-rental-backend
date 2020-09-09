@@ -109,7 +109,7 @@ public class CarRentalController {
         LOGGER.info("carReservation(" + carReservationRequestDto + ")");
         AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
         if (avisModelSessionDto != null) {
-            avisModelSessionDto.setVehicleId(vehicleId);
+            avisModelSessionDto.setChosenVehicleId(vehicleId);
             modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
         }
 

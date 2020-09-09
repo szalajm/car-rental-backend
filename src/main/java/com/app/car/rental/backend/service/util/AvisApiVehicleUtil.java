@@ -1,6 +1,7 @@
 package com.app.car.rental.backend.service.util;
 
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
+import com.app.car.rental.backend.api.avis.model.vehicle.Category;
 import com.app.car.rental.backend.api.avis.model.vehicle.Vehicle;
 
 import java.util.List;
@@ -28,5 +29,16 @@ public class AvisApiVehicleUtil {
         }
 
         return Optional.empty();
+    }
+
+    public static String extractVehicleClassCode(Vehicle vehicle) {
+        if (vehicle != null) {
+            Category category = vehicle.getCategory();
+            if (category != null) {
+                return category.getVehicleClassCode();
+            }
+        }
+
+        return null;
     }
 }

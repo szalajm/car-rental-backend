@@ -2,7 +2,6 @@ package com.app.car.rental.backend.service.mapper.avis;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.location.Location;
-import com.app.car.rental.backend.api.avis.model.rate.AvisApiRate;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Address;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.ArrivalFlight;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
@@ -19,27 +18,39 @@ import com.app.car.rental.backend.api.avis.model.reservation.post.request.Rate;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.RateTotals;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Reservation;
 import com.app.car.rental.backend.api.avis.model.vehicle.Vehicle;
+import com.app.car.rental.backend.service.util.AvisApiVehicleUtil;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
+
+import static com.app.car.rental.backend.web.controller.ControllerConstants.DROPOFF_DATE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.DROPOFF_LOCATION;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.PICKUP_DATE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.PICKUP_LOCATION;
 
 @Component
 public class AvisApiReservationPostRequestMapper {
 
+    private static final Logger LOGGER = Logger.getLogger(AvisApiReservationPostRequestMapper.class.getName());
+
     private AvisApiRateMapper avisApiRateMapper;
     private AvisApiVehicleMapper avisApiVehicleMapper;
 
-    public AvisApiReservationPostRequestMapper(AvisApiRateMapper avisApiRateMapper, AvisApiVehicleMapper avisApiVehicleMapper) {
+    public AvisApiReservationPostRequestMapper(AvisApiRateMapper avisApiRateMapper,
+                                               AvisApiVehicleMapper avisApiVehicleMapper) {
         this.avisApiRateMapper = avisApiRateMapper;
         this.avisApiVehicleMapper = avisApiVehicleMapper;
     }
 
     public AvisApiReservationPostRequest from(AvisModelSessionDto dto) {
+        LOGGER.info("from(" + dto + ")");
         AvisApiReservationPostRequest reservationPostRequest = new AvisApiReservationPostRequest();
 
         Vehicle chosenAvisApiVehicle = dto.getChosenVehicle();
+        String vehicleClassCode = AvisApiVehicleUtil.extractVehicleClassCode(chosenAvisApiVehicle);
 
 
 //        reservationPostRequest.set -> dto.get
@@ -53,18 +64,19 @@ public class AvisApiReservationPostRequestMapper {
 //        reservationPostRequest.setTransaction(transaction);
 
         // RESERVATION
+        // FIXME: remove FIXED values!
         Reservation reservation = new Reservation();
         reservation.setEmailNotification(true);
-        reservation.setDropoffDate("2020-10-20T12:00:00");
+        reservation.setDropoffDate(DROPOFF_DATE);
 //        reservation.setDropoffDate(dto.getDropOffDate());
-        reservation.setPickupDate("2020-10-18T12:00:00");
+        reservation.setPickupDate(PICKUP_DATE);
 //        reservation.setPickupDate(dto.getPickUpDate());
-        reservation.setPickupLocation("EWR");
+        reservation.setPickupLocation(PICKUP_LOCATION);
 //        reservation.setPickupLocation(pickUpLocationCode);
-        reservation.setDropoffLocation("EWR");
+        reservation.setDropoffLocation(DROPOFF_LOCATION);
 //        reservation.setDropoffLocation(dropOffLocationCode);
 //        reservation.setVehicleClassCode(dto.getVehicleClassCode());
-        reservation.setVehicleClassCode("A");
+        reservation.setVehicleClassCode(vehicleClassCode);
         reservationPostRequest.setReservation(reservation);
 
         // PRODUCT
@@ -74,7 +86,7 @@ public class AvisApiReservationPostRequestMapper {
         reservationPostRequest.setProduct(product);
 
         // RATE
-        AvisApiRate dtoAvisApiRate = dto.getAvisApiRate();
+//        AvisApiRate dtoAvisApiRate = dto.getAvisApiRate();
 //        Rate rate = avisApiRateMapper.toReservationRate(dtoAvisApiRate);
         // FIXME: verify the below mapping!
         Rate rate = avisApiVehicleMapper.toReservationRate(chosenAvisApiVehicle);

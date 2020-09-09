@@ -35,7 +35,7 @@ public class ReservationManagerService {
                                   AvisModelSessionDto avisModelSessionDto) throws Exception {
 
         if (carReservationRequestDto != null) {
-            String requestDtoVehicleId = carReservationRequestDto.getVehicleId();
+            String requestDtoVehicleId = avisModelSessionDto.getChosenVehicleId();
             if (avisModelSessionDto != null) {
                 AvisApiVehicle avisApiVehicle = avisModelSessionDto.getAvisApiVehicle();
                 Optional<Vehicle> optionalVehicle = AvisApiVehicleUtil.findVehicleById(requestDtoVehicleId, avisApiVehicle);

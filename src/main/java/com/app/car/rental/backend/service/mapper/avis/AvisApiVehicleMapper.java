@@ -5,6 +5,8 @@ import com.app.car.rental.backend.api.avis.model.vehicle.RateTotals;
 import com.app.car.rental.backend.api.avis.model.vehicle.Vehicle;
 import org.springframework.stereotype.Component;
 
+import static com.app.car.rental.backend.web.controller.ControllerConstants.COUNTRY_CODE;
+
 @Component
 public class AvisApiVehicleMapper {
     public com.app.car.rental.backend.api.avis.model.reservation.post.request.Rate toReservationRate(Vehicle avisApiVehicle) {
@@ -20,7 +22,7 @@ public class AvisApiVehicleMapper {
                     String rateCode = avisApiRate.getRateCode();
 
                     // FIXME: check CountryCode!
-                    reservationRate.setCountryCode("US");
+                    reservationRate.setCountryCode(COUNTRY_CODE);
                     reservationRate.setRateCode(rateCode);
                 }
             }

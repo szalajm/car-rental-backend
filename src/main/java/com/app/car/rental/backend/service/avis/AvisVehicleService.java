@@ -22,6 +22,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URLEncoder;
 import java.util.logging.Logger;
 
+import static com.app.car.rental.backend.web.controller.ControllerConstants.COUNTRY_CODE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.DROPOFF_DATE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.DROPOFF_LOCATION;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.PICKUP_DATE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.PICKUP_LOCATION;
+
 @Service
 public class AvisVehicleService {
     public static final Logger LOGGER = Logger.getLogger(AvisLocationService.class.getName());
@@ -54,12 +60,14 @@ public class AvisVehicleService {
                 // Add query parameter
                 .queryParam("brand", "Avis")
                 //.queryParam("pickup_date", locationSearchRequestDto.getPickUpDate())
-                .queryParam("pickup_date", URLEncoder.encode("2020-10-05T12:00:00"))
-                .queryParam("pickup_location", locationSearchRequestDto.getPickUpLocation())
-                .queryParam("dropoff_date", URLEncoder.encode("2020-10-07T12:00:00"))
+                .queryParam("pickup_date", URLEncoder.encode(PICKUP_DATE))
+//                .queryParam("pickup_location", locationSearchRequestDto.getPickUpLocation())
+                .queryParam("pickup_location", PICKUP_LOCATION)
+                .queryParam("dropoff_date", URLEncoder.encode(DROPOFF_DATE))
                 //.queryParam("dropoff_date", locationSearchRequestDto.getDropOffDate())
-                .queryParam("dropoff_location", locationSearchRequestDto.getDropOffLocation())
-                .queryParam("country_code", "PL")
+//                .queryParam("dropoff_location", locationSearchRequestDto.getDropOffLocation())
+                .queryParam("dropoff_location", DROPOFF_LOCATION)
+                .queryParam("country_code", COUNTRY_CODE)
                 //.encode()
                 .build(true);
         LOGGER.info("####: queryParams: " + builder.toUri());
