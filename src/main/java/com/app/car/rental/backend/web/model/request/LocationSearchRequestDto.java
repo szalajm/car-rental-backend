@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 public class LocationSearchRequestDto {
     private String pickUpLocation;
     private String dropOffLocation;
+
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private String pickUpDate;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private String dropOffDate;
 
-    //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate pickUpDate,
 }

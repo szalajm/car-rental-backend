@@ -19,17 +19,13 @@ import com.app.car.rental.backend.api.avis.model.reservation.post.request.RateTo
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Reservation;
 import com.app.car.rental.backend.api.avis.model.vehicle.Vehicle;
 import com.app.car.rental.backend.service.util.AvisApiVehicleUtil;
+import com.app.car.rental.backend.service.util.RequestDateUtil;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
-
-import static com.app.car.rental.backend.web.controller.ControllerConstants.DROPOFF_DATE;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.DROPOFF_LOCATION;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.PICKUP_DATE;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.PICKUP_LOCATION;
 
 @Component
 public class AvisApiReservationPostRequestMapper {
@@ -52,30 +48,26 @@ public class AvisApiReservationPostRequestMapper {
         Vehicle chosenAvisApiVehicle = dto.getChosenVehicle();
         String vehicleClassCode = AvisApiVehicleUtil.extractVehicleClassCode(chosenAvisApiVehicle);
 
-
 //        reservationPostRequest.set -> dto.get
         AvisApiLocation avisApiPickUpLocation = dto.getAvisApiPickUpLocation();
         String pickUpLocationCode = extractLocationCode(avisApiPickUpLocation);
         AvisApiLocation avisApiDropOffLocation = dto.getAvisApiDropOffLocation();
         String dropOffLocationCode = extractLocationCode(avisApiDropOffLocation);
 
+        String pickUpDate = dto.getPickUpDate();
+        String dropOffDate = dto.getDropOffDate();
+
 //        Transaction transaction = new Transaction();
 //        transaction.setTransactionId("24234234");
 //        reservationPostRequest.setTransaction(transaction);
 
         // RESERVATION
-        // FIXME: remove FIXED values!
         Reservation reservation = new Reservation();
         reservation.setEmailNotification(true);
-        reservation.setDropoffDate(DROPOFF_DATE);
-//        reservation.setDropoffDate(dto.getDropOffDate());
-        reservation.setPickupDate(PICKUP_DATE);
-//        reservation.setPickupDate(dto.getPickUpDate());
-        reservation.setPickupLocation(PICKUP_LOCATION);
-//        reservation.setPickupLocation(pickUpLocationCode);
-        reservation.setDropoffLocation(DROPOFF_LOCATION);
-//        reservation.setDropoffLocation(dropOffLocationCode);
-//        reservation.setVehicleClassCode(dto.getVehicleClassCode());
+        reservation.setPickupDate(RequestDateUtil.addTimeToDate(pickUpDate));
+        reservation.setDropoffDate(RequestDateUtil.addTimeToDate(dropOffDate));
+        reservation.setPickupLocation(pickUpLocationCode);
+        reservation.setDropoffLocation(dropOffLocationCode);
         reservation.setVehicleClassCode(vehicleClassCode);
         reservationPostRequest.setReservation(reservation);
 

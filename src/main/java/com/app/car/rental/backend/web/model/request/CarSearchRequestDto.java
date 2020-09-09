@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarChooseRequestDto {
+public class CarSearchRequestDto {
     private Long id;
 }

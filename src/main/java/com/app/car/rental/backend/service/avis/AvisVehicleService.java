@@ -2,6 +2,7 @@ package com.app.car.rental.backend.service.avis;
 
 import com.app.car.rental.backend.api.avis.model.token.AvisApiToken;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
+import com.app.car.rental.backend.service.util.RequestDateUtil;
 import com.app.car.rental.backend.web.controller.RestTemplateResponseErrorHandler;
 import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,14 +20,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URLEncoder;
 import java.util.logging.Logger;
 
 import static com.app.car.rental.backend.web.controller.ControllerConstants.COUNTRY_CODE;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.DROPOFF_DATE;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.DROPOFF_LOCATION;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.PICKUP_DATE;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.PICKUP_LOCATION;
 
 @Service
 public class AvisVehicleService {
@@ -55,18 +51,21 @@ public class AvisVehicleService {
 
         String serverUrl = "https://stage.abgapiservices.com/cars/catalog/v1/vehicles";
 
+        String pickUpDate = locationSearchRequestDto.getPickUpDate();
+        String dropOffDate = locationSearchRequestDto.getDropOffDate();
+
         UriComponents builder = UriComponentsBuilder
                 .fromHttpUrl(serverUrl)
                 // Add query parameter
                 .queryParam("brand", "Avis")
-                //.queryParam("pickup_date", locationSearchRequestDto.getPickUpDate())
-                .queryParam("pickup_date", URLEncoder.encode(PICKUP_DATE))
-//                .queryParam("pickup_location", locationSearchRequestDto.getPickUpLocation())
-                .queryParam("pickup_location", PICKUP_LOCATION)
-                .queryParam("dropoff_date", URLEncoder.encode(DROPOFF_DATE))
-                //.queryParam("dropoff_date", locationSearchRequestDto.getDropOffDate())
-//                .queryParam("dropoff_location", locationSearchRequestDto.getDropOffLocation())
-                .queryParam("dropoff_location", DROPOFF_LOCATION)
+                .queryParam("pickup_date", RequestDateUtil.addTimeToDate(pickUpDate))
+//                .queryParam("pickup_date", URLEncoder.encode(PICKUP_DATE))
+                .queryParam("pickup_location", locationSearchRequestDto.getPickUpLocation())
+//                .queryParam("pickup_location", PICKUP_LOCATION)
+                .queryParam("dropoff_date", RequestDateUtil.addTimeToDate(dropOffDate))
+//                .queryParam("dropoff_date", URLEncoder.encode(DROPOFF_DATE))
+                .queryParam("dropoff_location", locationSearchRequestDto.getDropOffLocation())
+//                .queryParam("dropoff_location", DROPOFF_LOCATION)
                 .queryParam("country_code", COUNTRY_CODE)
                 //.encode()
                 .build(true);
