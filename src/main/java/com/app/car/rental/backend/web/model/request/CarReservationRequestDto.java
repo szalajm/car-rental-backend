@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarReservationRequestDto {
-    private Long id;
+    private String vehicleId;
     private String[] categoryName;
     private String categoryMake;
     private Integer chosen;

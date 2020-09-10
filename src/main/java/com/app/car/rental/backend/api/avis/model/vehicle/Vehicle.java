@@ -14,6 +14,9 @@ import java.util.Map;
     "rate_totals"
 })
 public class Vehicle {
+    @JsonIgnore
+    private String id;
+
     @JsonProperty("category")
     private Category category;
     @JsonProperty("features")
@@ -24,6 +27,14 @@ public class Vehicle {
     private RateTotals rateTotals;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @JsonProperty("category")
     public Category getCategory() {
@@ -78,7 +89,8 @@ public class Vehicle {
     @Override
     public String toString() {
         return "Vehicle{" +
-                "category=" + category +
+                "id=" + id +
+                ", category=" + category +
                 ", features=" + features +
                 ", capacity=" + capacity +
                 ", rateTotals=" + rateTotals +
