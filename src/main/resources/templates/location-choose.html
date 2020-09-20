@@ -7,6 +7,7 @@
     <div th:replace="fragments/head-webjars-js :: head-webjars-js"></div>
 </head>
 <body>
+<div th:replace="fragments/navigation-bar :: navigation-bar"></div>
 <h1>car search result</h1>
 <div>
     <form action="#" th:action="@{/v1/rental/cars/choose}" th:object="${carSearch}" method="post">
