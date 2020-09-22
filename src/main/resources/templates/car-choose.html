@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Wybor samochodu - car-choose.html</title>
-    <link href="/css/car-choose.css" rel="stylesheet"/>
+    <div th:replace="fragments/head-webjars-css :: head-webjars-css"></div>
+    <div th:replace="fragments/head-webjars-js :: head-webjars-js"></div>
 
+    <link href="/css/car-choose.css" rel="stylesheet"/>
+    <script defer src="/js/car-choose.js"></script>
 </head>
 <body>
+<div th:replace="fragments/navigation-bar :: navigation-bar"></div>
 <h1>Wybor samochodu</h1>
 <div>
     <!--    <div th:text="${vehicles}"></div>-->
@@ -48,7 +52,5 @@
         </div>
     </form>
 </div>
-<script defer src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script defer src="/js/car-choose.js"></script>
 </body>
 </html>
