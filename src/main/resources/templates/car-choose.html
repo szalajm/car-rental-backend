@@ -14,8 +14,8 @@
 <h1>Wybor samochodu</h1>
 <div>
     <!--    <div th:text="${vehicles}"></div>-->
-    <form action="#" th:action="@{/v1/rental/cars/reservation}" th:object="${carReservation}" method="post">
-<!--    <form action="#" th:action="@{/v1/rental/passenger/data}" th:object="${carReservation}" method="post">-->
+<!--    <form action="#" th:action="@{/v1/rental/cars/reservation}" th:object="${carReservation}" method="post">-->
+    <form action="#" th:action="@{/v1/rental/passenger/data}" th:object="${carReservation}" method="post">
         <div>
             <p>dostepne samochody</p>
             <table class="table">
@@ -47,7 +47,7 @@
             </table>
             <div>
                 <!--                                <a href="#" th:href="@{/v1/rental/cars/reservation}">rezerwuj</a>-->
-                <button type="submit">rezerwuj</button>
+                <button type="submit">dane pasażera</button>
             </div>
         </div>
     </form>
