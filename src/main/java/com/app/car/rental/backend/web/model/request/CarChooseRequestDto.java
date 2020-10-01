@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.web.model;
+package com.app.car.rental.backend.web.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PassengerDataDto {
-    private String firstName;
-    private String lastName;
+public class CarChooseRequestDto {
+    private String vehicleId;
 }
