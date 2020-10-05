@@ -21,6 +21,42 @@
             <input id="lastName" type="text" th:field="*{lastName}">
             <small id="lastNameTip" class="form-text text-muted">Nazwisko osoby rezerwującej samochód.</small>
         </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input id="email" type="text" th:field="*{email}">
+            <small id="emailTip" class="form-text text-muted">E-mail osoby rezerwującej samochód.</small>
+        </div>
+        <div class="form-group">
+            <label for="telephone">Telefon</label>
+            <input id="telephone" type="text" th:field="*{telephone}">
+            <small id="telephoneTip" class="form-text text-muted">Telefon osoby rezerwującej samochód.</small>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="addressLine1">Adres, wiersz 1</label>
+            <input id="addressLine1" type="text" th:field="*{addressLine1}">
+            <small id="addressLine1Tip" class="form-text text-muted">Adres (wiersz 1) osoby rezerwującej samochód.</small>
+        </div>
+        <div class="form-group">
+            <label for="addressLine2">Adres, wiersz 2</label>
+            <input id="addressLine2" type="text" th:field="*{addressLine2}">
+            <small id="addressLine2Tip" class="form-text text-muted">Adres (wiersz 2) osoby rezerwującej samochód.</small>
+        </div>
+        <div class="form-group">
+            <label for="addressLine3">Adres, wiersz 3</label>
+            <input id="addressLine3" type="text" th:field="*{addressLine3}">
+            <small id="addressLine3Tip" class="form-text text-muted">Adres (wiersz 3) osoby rezerwującej samochód.</small>
+        </div>
+        <div class="form-group">
+            <label for="city">Miejscowość</label>
+            <input id="city" type="text" th:field="*{city}">
+            <small id="cityTip" class="form-text text-muted">Miejscowość osoby rezerwującej samochód.</small>
+        </div>
+        <div class="form-group">
+            <label for="postalCode">Kod pocztowy</label>
+            <input id="postalCode" type="text" th:field="*{postalCode}">
+            <small id="postalCodeTip" class="form-text text-muted">Kod pocztowy osoby rezerwującej samochód.</small>
+        </div>
         <div>
             <button type="submit" class="btn btn-primary">Rezerwuj</button>
         </div>

@@ -2,12 +2,9 @@ package com.app.car.rental.backend.service.mapper.avis;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.location.Location;
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.Address;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.ArrivalFlight;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.Contact;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Discount;
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.Driver;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Extra;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Insurance;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.Loyalty;
@@ -21,6 +18,7 @@ import com.app.car.rental.backend.api.avis.model.vehicle.Vehicle;
 import com.app.car.rental.backend.service.util.AvisApiVehicleUtil;
 import com.app.car.rental.backend.service.util.RequestDateUtil;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
+import com.app.car.rental.backend.web.model.PassengerDataDto;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -32,13 +30,13 @@ public class AvisApiReservationPostRequestMapper {
 
     private static final Logger LOGGER = Logger.getLogger(AvisApiReservationPostRequestMapper.class.getName());
 
-    private AvisApiRateMapper avisApiRateMapper;
     private AvisApiVehicleMapper avisApiVehicleMapper;
+    private AvisApiPassengerMapper avisApiPassengerMapper;
 
-    public AvisApiReservationPostRequestMapper(AvisApiRateMapper avisApiRateMapper,
-                                               AvisApiVehicleMapper avisApiVehicleMapper) {
-        this.avisApiRateMapper = avisApiRateMapper;
+    public AvisApiReservationPostRequestMapper(AvisApiVehicleMapper avisApiVehicleMapper,
+                                               AvisApiPassengerMapper avisApiPassengerMapper) {
         this.avisApiVehicleMapper = avisApiVehicleMapper;
+        this.avisApiPassengerMapper = avisApiPassengerMapper;
     }
 
     public AvisApiReservationPostRequest from(AvisModelSessionDto dto) {
@@ -47,6 +45,8 @@ public class AvisApiReservationPostRequestMapper {
 
         Vehicle chosenAvisApiVehicle = dto.getChosenVehicle();
         String vehicleClassCode = AvisApiVehicleUtil.extractVehicleClassCode(chosenAvisApiVehicle);
+
+        PassengerDataDto passengerDataDto = dto.getPassengerDataDto();
 
 //        reservationPostRequest.set -> dto.get
         AvisApiLocation avisApiPickUpLocation = dto.getAvisApiPickUpLocation();
@@ -103,35 +103,7 @@ public class AvisApiReservationPostRequestMapper {
         reservationPostRequest.setRateTotals(rateTotals);
 
         // PASSENGER
-        // FIXME: implement Passenger Mapper! Added only to showcase saved Reservations!
-        Passenger passenger = new Passenger();
-
-        Contact contact = new Contact();
-        contact.setTitle("MR");
-        contact.setFirstName("BRADLEY");
-        contact.setLastName("STEPHEN");
-        contact.setTelephone("123456789900000");
-        contact.setEmail("BRADLEY.STEPHEN@abgservices.com");
-        contact.setAge(28);
-        contact.setDateOfBirth("1991-12-31");
-        passenger.setContact(contact);
-
-        Address address = new Address();
-        address.setAddressLine1("696 Block A");
-        address.setAddressLine2("Ellis St");
-        address.setAddressLine3("");
-        address.setCity("San Francisco");
-        address.setStateName("CA");
-        address.setPostalCode("94110");
-        address.setCountryCode("US");
-        passenger.setAddress(address);
-
-        Driver driver = new Driver();
-        driver.setLicenseNumber("DI9000");
-        driver.setStateCode("CA");
-        driver.setCountryCode("US");
-        passenger.setDriver(driver);
-
+        Passenger passenger = avisApiPassengerMapper.toReservationPassenger(passengerDataDto);
         reservationPostRequest.setPassenger(passenger);
 
         // Insurance

@@ -1,8 +1,12 @@
 
 package com.app.car.rental.backend.api.avis.model.reservation.post.request;
 
-import com.fasterxml.jackson.annotation.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -118,7 +122,15 @@ public class Address {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("addressLine1", addressLine1).append("addressLine2", addressLine2).append("addressLine3", addressLine3).append("city", city).append("stateName", stateName).append("postalCode", postalCode).append("countryCode", countryCode).append("additionalProperties", additionalProperties).toString();
+        return "Address{" +
+                "addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", addressLine3='" + addressLine3 + '\'' +
+                ", city='" + city + '\'' +
+                ", stateName='" + stateName + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
-
 }

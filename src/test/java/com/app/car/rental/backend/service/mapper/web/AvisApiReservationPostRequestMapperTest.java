@@ -1,7 +1,7 @@
 package com.app.car.rental.backend.service.mapper.web;
 
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
-import com.app.car.rental.backend.service.mapper.avis.AvisApiRateMapper;
+import com.app.car.rental.backend.service.mapper.avis.AvisApiPassengerMapper;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiVehicleMapper;
 import com.app.car.rental.backend.web.model.AvisModelSessionDto;
@@ -15,14 +15,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class AvisApiReservationPostRequestMapperTest {
 
     @Autowired
-    private AvisApiRateMapper avisApiRateMapper;
-    @Autowired
     private AvisApiVehicleMapper avisApiVehicleMapper;
+    @Autowired
+    private AvisApiPassengerMapper avisApiPassengerMapper;
 
     @Test
     void givenSessionDto_whenMapperMap_thenPostRequestNotNull() {
+
         // given
-        AvisApiReservationPostRequestMapper mapper = new AvisApiReservationPostRequestMapper(avisApiRateMapper, avisApiVehicleMapper);
+        AvisApiReservationPostRequestMapper mapper = new AvisApiReservationPostRequestMapper(avisApiVehicleMapper, avisApiPassengerMapper);
         AvisModelSessionDto sessionDto = new AvisModelSessionDto();
         // when
         AvisApiReservationPostRequest reservationPostRequest = mapper.from(sessionDto);
