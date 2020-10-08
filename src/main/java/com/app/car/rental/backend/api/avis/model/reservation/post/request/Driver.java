@@ -1,15 +1,15 @@
 
 package com.app.car.rental.backend.api.avis.model.reservation.post.request;
 
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -70,7 +70,11 @@ public class Driver {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("licenseNumber", licenseNumber).append("stateCode", stateCode).append("countryCode", countryCode).append("additionalProperties", additionalProperties).toString();
+        return "Driver{" +
+                "licenseNumber='" + licenseNumber + '\'' +
+                ", stateCode='" + stateCode + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
-
 }

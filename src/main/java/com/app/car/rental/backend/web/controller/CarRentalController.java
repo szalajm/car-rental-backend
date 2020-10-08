@@ -122,6 +122,23 @@ public class CarRentalController {
         return new AvisModelSessionDto();
     }
 
+    @PostMapping("/passenger/data")
+    public String passengerDataView(
+            @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
+            @ModelAttribute(name = "passengerData") PassengerDataDto passengerDataDto,
+                                    ModelMap modelMap) {
+        LOGGER.info("passengerDataView: " + carReservationRequestDto);
+        LOGGER.info("passengerData: " + passengerDataDto);
+
+        AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
+        if (avisModelSessionDto != null) {
+            avisModelSessionDto.setPassengerDataDto(passengerDataDto);
+            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
+        }
+
+        return "passenger-data";
+    }
+
     @PostMapping("/cars/reservation")
     public String carReservationView(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
@@ -145,23 +162,6 @@ public class CarRentalController {
         }
 
         return "car-reservation";
-    }
-
-    @PostMapping("/passenger/data")
-    public String passengerDataView(
-            @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
-            @ModelAttribute(name = "passengerData") PassengerDataDto passengerDataDto,
-                                    ModelMap modelMap) {
-        LOGGER.info("passengerDataView: " + carReservationRequestDto);
-        LOGGER.info("passengerData: " + passengerDataDto);
-
-        AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
-        if (avisModelSessionDto != null) {
-            avisModelSessionDto.setPassengerDataDto(passengerDataDto);
-            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
-        }
-
-        return "passenger-data";
     }
 
     @PostMapping("/confirmation")

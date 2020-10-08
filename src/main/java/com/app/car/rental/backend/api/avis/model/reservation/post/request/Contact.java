@@ -1,15 +1,15 @@
 
 package com.app.car.rental.backend.api.avis.model.reservation.post.request;
 
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -122,7 +122,15 @@ public class Contact {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("title", title).append("firstName", firstName).append("lastName", lastName).append("telephone", telephone).append("email", email).append("age", age).append("dateOfBirth", dateOfBirth).append("additionalProperties", additionalProperties).toString();
+        return "Contact{" +
+                "title='" + title + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
-
 }
