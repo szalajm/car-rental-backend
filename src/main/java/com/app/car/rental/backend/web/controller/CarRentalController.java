@@ -12,6 +12,7 @@ import com.app.car.rental.backend.web.model.request.CarReservationRequestDto;
 import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.validation.Valid;
 import java.util.logging.Logger;
 
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_VIEW;
 import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATIONS_ATTRIBUTE;
 
 @Controller
@@ -45,16 +48,22 @@ public class CarRentalController {
 
     @GetMapping("/locations/search")
     public String locationSearchView(ModelMap modelMap) {
+        LOGGER.info("locationSearchView(...)");
         modelMap.addAttribute("locationSearch", new LocationSearchRequestDto());
         modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, new AvisModelSessionDto());
-        return "location-search";
+        return LOCATION_SEARCH_VIEW;
     }
 
     @PostMapping("/locations/choose")
     public String locationChooseView(
-            @ModelAttribute(name = "locationSearch") LocationSearchRequestDto locationSearchRequestDto,
-            ModelMap modelMap) {
+            @Valid @ModelAttribute(name = "locationSearch") LocationSearchRequestDto locationSearchRequestDto,
+            ModelMap modelMap, BindingResult bindingResult) {
         LOGGER.info("#### locationSearch: " + locationSearchRequestDto);
+
+        if (bindingResult.hasErrors()) {
+            return LOCATION_SEARCH_VIEW;
+        }
+
         AvisApiLocation pickUpLocations = carRentalService.locationSearch(locationSearchRequestDto.getPickUpLocation());
         AvisApiLocation dropOffLocations = carRentalService.locationSearch(locationSearchRequestDto.getDropOffLocation());
 

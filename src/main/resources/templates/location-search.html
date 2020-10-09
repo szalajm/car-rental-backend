@@ -14,12 +14,14 @@
 <div>
     <form action="#" th:action="@{/v1/rental/locations/choose}" th:object="${locationSearch}" method="post">
         <div>
-            <label for="pickUpLocation">miejsce odbioru</label>
+            <label for="pickUpLocation">Miejsce odbioru samochodu</label>
             <input id="pickUpLocation" type="text" th:field="*{pickUpLocation}">
+            <p th:if="${#fields.hasErrors('pickUpLocation')}" th:errors="*{pickUpLocation}"></p>
         </div>
         <div>
-            <label for="dropOffLocation">miejsce zwrotu</label>
+            <label for="dropOffLocation">Miejsce zwrotu samochodu</label>
             <input id="dropOffLocation" name="dropOffLocation" type="text" th:field="${locationSearch.dropOffLocation}">
+            <p th:if="${#fields.hasErrors('dropOffLocation')}" th:errors="*{dropOffLocation}"></p>
         </div>
         <div>
             <div>
