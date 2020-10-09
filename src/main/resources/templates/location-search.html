@@ -25,10 +25,14 @@
         </div>
         <div>
             <div>
-                <p>Data odbioru: <input type="text" id="pickUpDate" name="pickUpDate" th:field="*{pickUpDate}"></p>
+                <label for="pickUpDate">Data zwrotu samochodu</label>
+                <input type="text" id="pickUpDate" name="pickUpDate" th:field="*{pickUpDate}" readonly>
+                <p th:if="${#fields.hasErrors('pickUpDate')}" th:errors="*{pickUpDate}"></p>
             </div>
             <div>
-                <p>Data zwrotu: <input type="text" id="dropOffDate" name="dropOffDate" th:field="${locationSearch.dropOffDate}"></p>
+                <label for="dropOffDate">Data zwrotu samochodu</label>
+                <input type="text" id="dropOffDate" name="dropOffDate" th:field="${locationSearch.dropOffDate}" readonly>
+                <p th:if="${#fields.hasErrors('dropOffDate')}" th:errors="*{dropOffDate}"></p>
             </div>
         </div>
         <div>

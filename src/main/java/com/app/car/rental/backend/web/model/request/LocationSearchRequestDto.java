@@ -21,8 +21,10 @@ public class LocationSearchRequestDto {
     private String dropOffLocation;
 
     //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotBlank(message = PICK_UP_LOCATION_VALIDATION_MESSAGE)
     private String pickUpDate;
     //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotBlank(message = PICK_UP_LOCATION_VALIDATION_MESSAGE)
     private String dropOffDate;
 
 }

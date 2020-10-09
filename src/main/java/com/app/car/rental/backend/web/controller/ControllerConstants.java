@@ -15,6 +15,9 @@ public class ControllerConstants {
     public static final String LOCATION_SEARCH_URI = "/locations/search";
     public static final String LOCATION_SEARCH_VIEW = "location-search";
 
-    public static final String PICK_UP_LOCATION_VALIDATION_MESSAGE = "Proszę podać datę odbioru samochodu";
-    public static final String DROP_OFF_LOCATION_VALIDATION_MESSAGE = "Proszę podać datę zwrotu samochodu";
+    public static final String PICK_UP_LOCATION_VALIDATION_MESSAGE = "Proszę podać miejsce odbioru samochodu";
+    public static final String DROP_OFF_LOCATION_VALIDATION_MESSAGE = "Proszę podać miejsce zwrotu samochodu";
+
+    public static final String PICK_UP_DATE_VALIDATION_MESSAGE = "Proszę podać datę odbioru samochodu";
+    public static final String DROP_OFF_DATE_VALIDATION_MESSAGE = "Proszę podać datę zwrotu samochodu";
 }
