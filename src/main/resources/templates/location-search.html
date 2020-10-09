@@ -10,8 +10,8 @@
 </head>
 <body>
 <div th:replace="fragments/navigation-bar :: navigation-bar"></div>
-<h1>car rental system</h1>
-<div>
+<div class="container-fluid">
+    <h1>car rental system</h1>
     <form action="#" th:action="@{/v1/rental/locations/choose}" th:object="${locationSearch}" method="post">
         <div>
             <label for="pickUpLocation">Miejsce odbioru samochodu</label>

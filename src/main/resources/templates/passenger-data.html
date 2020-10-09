@@ -8,8 +8,8 @@
 </head>
 <body>
 <div th:replace="fragments/navigation-bar :: navigation-bar"></div>
-<h1>Wprowadź dane pasażera</h1>
 <div class="container-fluid">
+    <h1>Wprowadź dane pasażera</h1>
     <form action="#" th:action="@{/v1/rental/cars/reservation}" th:object="${passengerData}" method="post">
         <div class="form-group">
             <label for="firstName">Imię</label>

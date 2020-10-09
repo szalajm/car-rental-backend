@@ -8,8 +8,8 @@
 </head>
 <body>
 <div th:replace="fragments/navigation-bar :: navigation-bar"></div>
-<h1>car search result</h1>
-<div>
+<div class="container-fluid">
+    <h1>car search result</h1>
     <form action="#" th:action="@{/v1/rental/cars/choose}" th:object="${carSearch}" method="post">
         <div>
             <div>
