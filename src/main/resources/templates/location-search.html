@@ -10,23 +10,29 @@
 </head>
 <body>
 <div th:replace="fragments/navigation-bar :: navigation-bar"></div>
-<h1>car rental system</h1>
-<div>
+<div class="container-fluid">
+    <h1>car rental system</h1>
     <form action="#" th:action="@{/v1/rental/locations/choose}" th:object="${locationSearch}" method="post">
         <div>
-            <label for="pickUpLocation">miejsce odbioru</label>
+            <label for="pickUpLocation">Miejsce odbioru samochodu</label>
             <input id="pickUpLocation" type="text" th:field="*{pickUpLocation}">
+            <p th:if="${#fields.hasErrors('pickUpLocation')}" th:errors="*{pickUpLocation}"></p>
         </div>
         <div>
-            <label for="dropOffLocation">miejsce zwrotu</label>
+            <label for="dropOffLocation">Miejsce zwrotu samochodu</label>
             <input id="dropOffLocation" name="dropOffLocation" type="text" th:field="${locationSearch.dropOffLocation}">
+            <p th:if="${#fields.hasErrors('dropOffLocation')}" th:errors="*{dropOffLocation}"></p>
         </div>
         <div>
             <div>
-                <p>Data odbioru: <input type="text" id="pickUpDate" name="pickUpDate" th:field="*{pickUpDate}"></p>
+                <label for="pickUpDate">Data zwrotu samochodu</label>
+                <input type="text" id="pickUpDate" name="pickUpDate" th:field="*{pickUpDate}" readonly>
+                <p th:if="${#fields.hasErrors('pickUpDate')}" th:errors="*{pickUpDate}"></p>
             </div>
             <div>
-                <p>Data zwrotu: <input type="text" id="dropOffDate" name="dropOffDate" th:field="${locationSearch.dropOffDate}"></p>
+                <label for="dropOffDate">Data zwrotu samochodu</label>
+                <input type="text" id="dropOffDate" name="dropOffDate" th:field="${locationSearch.dropOffDate}" readonly>
+                <p th:if="${#fields.hasErrors('dropOffDate')}" th:errors="*{dropOffDate}"></p>
             </div>
         </div>
         <div>

@@ -12,6 +12,7 @@ import com.app.car.rental.backend.web.model.request.CarReservationRequestDto;
 import com.app.car.rental.backend.web.model.request.LocationSearchRequestDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.validation.Valid;
 import java.util.logging.Logger;
 
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATIONS_CHOOSE_URI;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_ATTRIBUTE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_URI;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_VIEW;
 import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATIONS_ATTRIBUTE;
 
 @Controller
@@ -43,29 +49,35 @@ public class CarRentalController {
         this.reservationManagerService = reservationManagerService;
     }
 
-    @GetMapping("/locations/search")
+    @GetMapping(LOCATION_SEARCH_URI)
     public String locationSearchView(ModelMap modelMap) {
-        modelMap.addAttribute("locationSearch", new LocationSearchRequestDto());
+        modelMap.addAttribute(LOCATION_SEARCH_ATTRIBUTE, new LocationSearchRequestDto());
         modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, new AvisModelSessionDto());
-        return "location-search";
+        return LOCATION_SEARCH_VIEW;
     }
 
-    @PostMapping("/locations/choose")
+    @PostMapping(LOCATIONS_CHOOSE_URI)
     public String locationChooseView(
-            @ModelAttribute(name = "locationSearch") LocationSearchRequestDto locationSearchRequestDto,
-            ModelMap modelMap) {
+            @Valid @ModelAttribute(name = LOCATION_SEARCH_ATTRIBUTE) LocationSearchRequestDto locationSearchRequestDto,
+            BindingResult bindingResult, ModelMap modelMap) {
         LOGGER.info("#### locationSearch: " + locationSearchRequestDto);
+
+        if (bindingResult.hasErrors()) {
+            LOGGER.info("validation errors for: " + locationSearchRequestDto);
+            return LOCATION_SEARCH_VIEW;
+        }
+
         AvisApiLocation pickUpLocations = carRentalService.locationSearch(locationSearchRequestDto.getPickUpLocation());
         AvisApiLocation dropOffLocations = carRentalService.locationSearch(locationSearchRequestDto.getDropOffLocation());
 
-       AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
-       if(avisModelSessionDto != null) {
-           avisModelSessionDto.setAvisApiDropOffLocation(dropOffLocations);
-           avisModelSessionDto.setAvisApiPickUpLocation(pickUpLocations);
-           avisModelSessionDto.setPickUpDate(locationSearchRequestDto.getPickUpDate());
-           avisModelSessionDto.setDropOffDate(locationSearchRequestDto.getDropOffDate());
-           modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
-       }
+        AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
+        if (avisModelSessionDto != null) {
+            avisModelSessionDto.setAvisApiDropOffLocation(dropOffLocations);
+            avisModelSessionDto.setAvisApiPickUpLocation(pickUpLocations);
+            avisModelSessionDto.setPickUpDate(locationSearchRequestDto.getPickUpDate());
+            avisModelSessionDto.setDropOffDate(locationSearchRequestDto.getDropOffDate());
+            modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
+        }
 
         modelMap.addAttribute("pickUpLocations", pickUpLocations.getLocations());
         modelMap.addAttribute("dropOffLocations", dropOffLocations.getLocations());
@@ -126,7 +138,7 @@ public class CarRentalController {
     public String passengerDataView(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
             @ModelAttribute(name = "passengerData") PassengerDataDto passengerDataDto,
-                                    ModelMap modelMap) {
+            ModelMap modelMap) {
         LOGGER.info("passengerDataView: " + carReservationRequestDto);
         LOGGER.info("passengerData: " + passengerDataDto);
 
@@ -149,7 +161,7 @@ public class CarRentalController {
         LOGGER.info("passengerDataDto: " + passengerDataDto);
 
         AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
-        if(avisModelSessionDto != null) {
+        if (avisModelSessionDto != null) {
             modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
             LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
 
