@@ -41,6 +41,7 @@ public class AvisApiPassengerMapper {
     }
 
     Contact passengerContact(PassengerDataDto passengerDataDto) {
+        LOGGER.info("passengerContact(" + passengerDataDto + ")");
         Contact contact = new Contact();
 
         contact.setFirstName(passengerDataDto.getFirstName());
@@ -50,6 +51,7 @@ public class AvisApiPassengerMapper {
         contact.setEmail(passengerDataDto.getEmail());
         contact.setTelephone(passengerDataDto.getTelephone());
 
+        LOGGER.info("passengerContact(...) = " + contact);
         return contact;
     }
 
