@@ -1,6 +1,7 @@
 package com.app.car.rental.backend.web.model;
 
 import com.app.car.rental.backend.web.model.reservation.ConfirmationDto;
+import com.app.car.rental.backend.web.model.reservation.LocationAddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,8 +16,8 @@ public class ReservationDto {
 
     private ConfirmationDto confirmation;
     //    private DistanceDto distance;
-//    private PickupLocationDto pickupLocation;
-//    private DropoffLocationDto dropoffLocation;
+    private LocationAddressDto pickUpLocationAddressDto;
+    private LocationAddressDto dropOffLocationAddressDto;
 //    private List<ExtraDto> extras = null;
 //    private RateTotalsDto rateTotals;
 //    private List<InsuranceDto> insurance = null;

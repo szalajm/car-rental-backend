@@ -1,8 +1,14 @@
 package com.app.car.rental.backend.service.mapper.avis;
 
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.Address;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.Address_;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.Category;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.Confirmation;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.DropoffLocation;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.Location;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.Location_;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.PickupLocation;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.Reservation;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.Vehicle;
 import com.app.car.rental.backend.web.model.CategoryDto;
@@ -26,15 +32,21 @@ public class AvisApiReservationPostResponseMapper {
             Reservation avisReservation = avisApiReservationPostResponse.getReservation();
             if (avisReservation != null) {
                 Confirmation avisConfirmation = avisReservation.getConfirmation();
+                PickupLocation avisPickupLocation = avisReservation.getPickupLocation();
+                DropoffLocation avisDropoffLocation = avisReservation.getDropoffLocation();
                 Vehicle avisVehicle = avisReservation.getVehicle();
                 Category avisCategory = avisVehicle.getCategory();
 
                 ReservationDto reservationDto = new ReservationDto();
                 ConfirmationDto confirmationDto = getConfirmationDto(avisConfirmation);
+                LocationAddressDto pickUpLocationAddressDto = getPickUpLocation(avisPickupLocation);
+                LocationAddressDto dropOffLocationAddressDto = getDropOffLocation(avisDropoffLocation);
                 VehicleDto vehicleDto = new VehicleDto();
                 CategoryDto categoryDto = getCategoryDto(avisCategory);
 
                 reservationDto.setConfirmation(confirmationDto);
+                reservationDto.setPickUpLocationAddressDto(pickUpLocationAddressDto);
+                reservationDto.setDropOffLocationAddressDto(dropOffLocationAddressDto);
                 vehicleDto.setCategory(categoryDto);
                 reservationDto.setVehicle(vehicleDto);
 
@@ -57,17 +69,47 @@ public class AvisApiReservationPostResponseMapper {
 
     // TODO: should I map Distance class?
 
-    LocationAddressDto getPickUpLocationAddress(LocationDto locationDto, AddressDto addressDto) {
+    LocationAddressDto getPickUpLocation(PickupLocation avisPickupLocation) {
+        Location location = avisPickupLocation.getLocation();
+        Address address = avisPickupLocation.getAddress();
+
         return LocationAddressDto.builder()
-                .locationDto(locationDto)
-                .addressDto(addressDto)
+                .locationDto(getPickUpLocation(location))
+                .addressDto(getPickUpAddress(address))
                 .build();
     }
 
-    LocationAddressDto getDropOffLocationAddress(LocationDto locationDto, AddressDto addressDto) {
+    LocationDto getPickUpLocation(Location location) {
+        return LocationDto.builder()
+                // FIXME: implement!
+                .build();
+    }
+
+    AddressDto getPickUpAddress(Address address) {
+        return AddressDto.builder()
+                // FIXME: implement!
+                .build();
+    }
+
+    LocationAddressDto getDropOffLocation(DropoffLocation avisDropoffLocation) {
+        Location_ location = avisDropoffLocation.getLocation();
+        Address_ address = avisDropoffLocation.getAddress();
+
         return LocationAddressDto.builder()
-                .locationDto(locationDto)
-                .addressDto(addressDto)
+                .locationDto(getDropOffLocation(location))
+                .addressDto(getDropOffAddress(address))
+                .build();
+    }
+
+    LocationDto getDropOffLocation(Location_ location) {
+        return LocationDto.builder()
+                // FIXME: implement!
+                .build();
+    }
+
+    AddressDto getDropOffAddress(Address_ address) {
+        return AddressDto.builder()
+                // FIXME: implement!
                 .build();
     }
 
