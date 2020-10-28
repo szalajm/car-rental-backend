@@ -15,9 +15,12 @@ import com.app.car.rental.backend.web.model.request.CarReservationRequestDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class ReservationManagerService {
+
+    private static final Logger LOGGER = Logger.getLogger(ReservationManagerService.class.getName());
 
     private AvisReservationService avisReservationService;
     private AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper;
@@ -31,8 +34,11 @@ public class ReservationManagerService {
         this.avisApiReservationPostResponseMapper = avisApiReservationPostResponseMapper;
     }
 
-    public ReservationDto reserve(CarReservationRequestDto carReservationRequestDto,
-                                  AvisModelSessionDto avisModelSessionDto) throws Exception {
+    public Optional<ReservationDto> reserve(CarReservationRequestDto carReservationRequestDto,
+                                            AvisModelSessionDto avisModelSessionDto) throws Exception {
+        LOGGER.info("reserve()");
+        LOGGER.info("carReservationRequestDto: " + carReservationRequestDto);
+        LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
 
         if (carReservationRequestDto != null) {
             String requestDtoVehicleId = avisModelSessionDto.getChosenVehicleId();
@@ -45,12 +51,14 @@ public class ReservationManagerService {
                 avisModelSessionDto.setChosenVehicle(vehicle);
 
                 AvisApiReservationPostRequest apiReservation = avisApiReservationPostRequestMapper.from(avisModelSessionDto);
-                AvisApiReservationPostResponse reservations = avisReservationService.reservations(apiReservation);
+                AvisApiReservationPostResponse avisApiReservationPostResponse = avisReservationService.reservations(apiReservation);
 
-                return avisApiReservationPostResponseMapper.from(reservations);
+                Optional<ReservationDto> reservationDtoOptional = avisApiReservationPostResponseMapper.from(avisApiReservationPostResponse);
+//                return reservationDtoOptional.orElseThrow(() -> new ReservationNotMappedException("AvisApiReservationPostResponse not mapped"));
+                return reservationDtoOptional;
             }
         }
 
-        return null;
+        return Optional.empty();
     }
 }

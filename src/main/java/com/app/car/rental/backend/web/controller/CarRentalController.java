@@ -2,6 +2,7 @@ package com.app.car.rental.backend.web.controller;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
+import com.app.car.rental.backend.api.exception.ReservationException;
 import com.app.car.rental.backend.service.CarRentalService;
 import com.app.car.rental.backend.service.ReservationManagerService;
 import com.app.car.rental.backend.service.ReservationService;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATIONS_CHOOSE_URI;
@@ -167,7 +169,8 @@ public class CarRentalController {
             LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
 
             try {
-                ReservationDto reservationDto = reservationManagerService.reserve(carReservationRequestDto, avisModelSessionDto);
+                Optional<ReservationDto> reservationDtoOptional = reservationManagerService.reserve(carReservationRequestDto, avisModelSessionDto);
+                ReservationDto reservationDto = reservationDtoOptional.orElseThrow(() -> new ReservationException("Unable to reserve car"));
                 reservationService.create(reservationDto);
             } catch (Exception e) {
                 e.printStackTrace();

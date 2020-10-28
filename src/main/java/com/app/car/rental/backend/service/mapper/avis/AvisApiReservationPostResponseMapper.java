@@ -22,13 +22,14 @@ import com.app.car.rental.backend.web.model.reservation.LocationAddressDto;
 import com.app.car.rental.backend.web.model.reservation.LocationDto;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Component
 public class AvisApiReservationPostResponseMapper {
     private static final Logger LOGGER = Logger.getLogger(AvisApiReservationPostResponseMapper.class.getName());
 
-    public ReservationDto from(AvisApiReservationPostResponse avisApiReservationPostResponse) {
+    public Optional<ReservationDto> from(AvisApiReservationPostResponse avisApiReservationPostResponse) {
         LOGGER.info("from(" + avisApiReservationPostResponse + ")");
         if (avisApiReservationPostResponse != null) {
             Reservation avisReservation = avisApiReservationPostResponse.getReservation();
@@ -56,12 +57,11 @@ public class AvisApiReservationPostResponseMapper {
                 reservationDto.setVehicle(vehicleDto);
 
                 LOGGER.info("from(...) = " + reservationDto);
-                return reservationDto;
+                return Optional.of(reservationDto);
             }
         }
 
-        // FIXME: return Optional!
-        return null;
+        return Optional.empty();
     }
 
     ConfirmationDto getConfirmationDto(Confirmation avisConfirmation) {
