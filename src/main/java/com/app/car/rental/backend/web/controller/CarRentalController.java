@@ -26,11 +26,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATIONS_CHOOSE_URI;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_ATTRIBUTE;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_URI;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_VIEW;
-import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATIONS_ATTRIBUTE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.*;
 
 @Controller
 @RequestMapping("/v1/rental")
@@ -136,7 +132,10 @@ public class CarRentalController {
         return new AvisModelSessionDto();
     }
 
-    @PostMapping("/passenger/data")
+    @PostMapping(PASSENGER_DATA_URI)
+//    public String locationChooseView(
+//            @Valid @ModelAttribute(name = LOCATION_SEARCH_ATTRIBUTE) LocationSearchRequestDto locationSearchRequestDto,
+//            BindingResult bindingResult, ModelMap modelMap) {
     public String passengerDataView(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
             @ModelAttribute(name = "passengerData") PassengerDataDto passengerDataDto,
@@ -144,23 +143,27 @@ public class CarRentalController {
         LOGGER.info("passengerDataView: " + carReservationRequestDto);
         LOGGER.info("passengerData: " + passengerDataDto);
 
+
         AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
         if (avisModelSessionDto != null) {
             avisModelSessionDto.setPassengerDataDto(passengerDataDto);
             modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
         }
 
-        return "passenger-data";
+        return PASSENGER_DATA_VIEW;
     }
 
     @PostMapping("/cars/reservation")
     public String carReservationView(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
-            @ModelAttribute(name = "passengerData") PassengerDataDto passengerDataDto,
-            ModelMap modelMap) {
+            @Valid @ModelAttribute(name = "passengerData") PassengerDataDto passengerDataDto,
+            BindingResult bindingResult, ModelMap modelMap) {
         LOGGER.info("carReservationView");
         LOGGER.info("carReservationRequestDto: " + carReservationRequestDto);
         LOGGER.info("passengerDataDto: " + passengerDataDto);
+        if (bindingResult.hasErrors()) {
+            return PASSENGER_DATA_VIEW;
+        }
 
         AvisModelSessionDto avisModelSessionDto = (AvisModelSessionDto) modelMap.getAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION);
         if (avisModelSessionDto != null) {
