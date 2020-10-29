@@ -14,47 +14,56 @@
         <div class="form-group">
             <label for="firstName">Imię</label>
             <input id="firstName" type="text" th:field="*{firstName}">
+            <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" ></p>
             <small id="firstNameTip" class="form-text text-muted">Imię osoby rezerwującej samochód.</small>
         </div>
         <div class="form-group">
             <label for="lastName">Nazwisko</label>
             <input id="lastName" type="text" th:field="*{lastName}">
+            <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" ></p>
             <small id="lastNameTip" class="form-text text-muted">Nazwisko osoby rezerwującej samochód.</small>
         </div>
         <div class="form-group">
             <label for="email">E-mail</label>
             <input id="email" type="text" th:field="*{email}">
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></p>
             <small id="emailTip" class="form-text text-muted">E-mail osoby rezerwującej samochód.</small>
         </div>
         <div class="form-group">
             <label for="telephone">Telefon</label>
             <input id="telephone" type="text" th:field="*{telephone}">
+            <p th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" ></p>
             <small id="telephoneTip" class="form-text text-muted">Telefon osoby rezerwującej samochód.</small>
         </div>
         <hr>
         <div class="form-group">
             <label for="addressLine1">Adres, wiersz 1</label>
             <input id="addressLine1" type="text" th:field="*{addressLine1}">
+            <p th:if="${#fields.hasErrors('addressLine1')}" th:errors="*{addressLine1}" ></p>
             <small id="addressLine1Tip" class="form-text text-muted">Adres (wiersz 1) osoby rezerwującej samochód.</small>
         </div>
         <div class="form-group">
             <label for="addressLine2">Adres, wiersz 2</label>
             <input id="addressLine2" type="text" th:field="*{addressLine2}">
+            <p th:if="${#fields.hasErrors('addressLine2')}" th:errors="*{addressLine2}" ></p>
             <small id="addressLine2Tip" class="form-text text-muted">Adres (wiersz 2) osoby rezerwującej samochód.</small>
         </div>
         <div class="form-group">
             <label for="addressLine3">Adres, wiersz 3</label>
             <input id="addressLine3" type="text" th:field="*{addressLine3}">
+            <p th:if="${#fields.hasErrors('addressLine3')}" th:errors="*{addressLine3}" ></p>
             <small id="addressLine3Tip" class="form-text text-muted">Adres (wiersz 3) osoby rezerwującej samochód.</small>
         </div>
         <div class="form-group">
             <label for="city">Miejscowość</label>
             <input id="city" type="text" th:field="*{city}">
+            <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" ></p>
             <small id="cityTip" class="form-text text-muted">Miejscowość osoby rezerwującej samochód.</small>
         </div>
         <div class="form-group">
             <label for="postalCode">Kod pocztowy</label>
             <input id="postalCode" type="text" th:field="*{postalCode}">
+            <p th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}" ></p>
             <small id="postalCodeTip" class="form-text text-muted">Kod pocztowy osoby rezerwującej samochód.</small>
         </div>
         <div>
