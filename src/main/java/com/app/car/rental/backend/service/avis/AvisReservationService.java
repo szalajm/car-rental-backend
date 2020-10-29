@@ -23,6 +23,8 @@ public class AvisReservationService {
     }
 
     public AvisApiReservationPostResponse reservations(AvisApiReservationPostRequest avisApiReservation) throws Exception { //TODO : poprawna obsluga wlasnych wyjatkow
+        LOGGER.info("reservations(" + avisApiReservation + ")");
+
         AvisApiToken avisApiToken = avisTokenService.token();
         String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
 
@@ -42,10 +44,16 @@ public class AvisReservationService {
         String serverUrl = "https://stage.abgapiservices.com/cars/reservation/v1";
 
         //ResponseEntity<AvisApiReservationPostRequest> response = restTemplate.exchange(serverUrl, HttpMethod.POST, requestEntity, AvisApiReservationPostRequest.class);
-        ResponseEntity<AvisApiReservationPostResponse> response = restTemplate.postForEntity(serverUrl, requestEntity, AvisApiReservationPostResponse.class);
-        LOGGER.info("" + response.getBody());
+        try {
+            ResponseEntity<AvisApiReservationPostResponse> response = restTemplate.postForEntity(serverUrl, requestEntity, AvisApiReservationPostResponse.class);
+            LOGGER.info("" + response.getBody());
 
-        return response.getBody();
+            return response.getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
 

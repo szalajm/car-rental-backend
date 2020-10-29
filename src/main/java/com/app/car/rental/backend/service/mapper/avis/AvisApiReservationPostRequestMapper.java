@@ -126,6 +126,7 @@ public class AvisApiReservationPostRequestMapper {
         arrivalFlight.setAirlineNumber("349723");
         reservationPostRequest.setArrivalFlight(arrivalFlight);
 
+        LOGGER.info("from(...) = " + reservationPostRequest);
         return reservationPostRequest;
     }
 

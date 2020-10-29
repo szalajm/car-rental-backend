@@ -5,6 +5,7 @@ import com.app.car.rental.backend.api.avis.model.reservation.post.response.Addre
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.Category;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.Confirmation;
+import com.app.car.rental.backend.api.avis.model.reservation.post.response.Distance;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.DropoffLocation;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.Location;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.Location_;
@@ -16,22 +17,25 @@ import com.app.car.rental.backend.web.model.ReservationDto;
 import com.app.car.rental.backend.web.model.VehicleDto;
 import com.app.car.rental.backend.web.model.reservation.AddressDto;
 import com.app.car.rental.backend.web.model.reservation.ConfirmationDto;
+import com.app.car.rental.backend.web.model.reservation.DistanceDto;
 import com.app.car.rental.backend.web.model.reservation.LocationAddressDto;
 import com.app.car.rental.backend.web.model.reservation.LocationDto;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Component
 public class AvisApiReservationPostResponseMapper {
     private static final Logger LOGGER = Logger.getLogger(AvisApiReservationPostResponseMapper.class.getName());
 
-    public ReservationDto from(AvisApiReservationPostResponse avisApiReservationPostResponse) {
+    public Optional<ReservationDto> from(AvisApiReservationPostResponse avisApiReservationPostResponse) {
         LOGGER.info("from(" + avisApiReservationPostResponse + ")");
         if (avisApiReservationPostResponse != null) {
             Reservation avisReservation = avisApiReservationPostResponse.getReservation();
             if (avisReservation != null) {
                 Confirmation avisConfirmation = avisReservation.getConfirmation();
+                Distance avisDistance = avisReservation.getDistance();
                 PickupLocation avisPickupLocation = avisReservation.getPickupLocation();
                 DropoffLocation avisDropoffLocation = avisReservation.getDropoffLocation();
                 Vehicle avisVehicle = avisReservation.getVehicle();
@@ -39,24 +43,25 @@ public class AvisApiReservationPostResponseMapper {
 
                 ReservationDto reservationDto = new ReservationDto();
                 ConfirmationDto confirmationDto = getConfirmationDto(avisConfirmation);
+                DistanceDto distanceDto = getDistanceDto(avisDistance);
                 LocationAddressDto pickUpLocationAddressDto = getPickUpLocation(avisPickupLocation);
                 LocationAddressDto dropOffLocationAddressDto = getDropOffLocation(avisDropoffLocation);
                 VehicleDto vehicleDto = new VehicleDto();
                 CategoryDto categoryDto = getCategoryDto(avisCategory);
 
                 reservationDto.setConfirmation(confirmationDto);
+                reservationDto.setDistance(distanceDto);
                 reservationDto.setPickUpLocationAddressDto(pickUpLocationAddressDto);
                 reservationDto.setDropOffLocationAddressDto(dropOffLocationAddressDto);
                 vehicleDto.setCategory(categoryDto);
                 reservationDto.setVehicle(vehicleDto);
 
                 LOGGER.info("from(...) = " + reservationDto);
-                return reservationDto;
+                return Optional.of(reservationDto);
             }
         }
 
-        // FIXME: return Optional!
-        return null;
+        return Optional.empty();
     }
 
     ConfirmationDto getConfirmationDto(Confirmation avisConfirmation) {
@@ -67,7 +72,12 @@ public class AvisApiReservationPostResponseMapper {
                 .build();
     }
 
-    // TODO: should I map Distance class?
+    DistanceDto getDistanceDto(Distance avisDistance) {
+        return DistanceDto.builder()
+                .distanceUnit(avisDistance.getDistanceUnit())
+                .unlimitedDistance(avisDistance.getUnlimitedDistance())
+                .build();
+    }
 
     LocationAddressDto getPickUpLocation(PickupLocation avisPickupLocation) {
         Location location = avisPickupLocation.getLocation();
@@ -81,13 +91,22 @@ public class AvisApiReservationPostResponseMapper {
 
     LocationDto getPickUpLocation(Location location) {
         return LocationDto.builder()
-                // FIXME: implement!
+                .airportLocation(location.getAirportLocation())
+                .code(location.getCode())
+                .hours(location.getHours())
+                .name(location.getName())
+                .telephone(location.getTelephone())
                 .build();
     }
 
     AddressDto getPickUpAddress(Address address) {
         return AddressDto.builder()
-                // FIXME: implement!
+                .addressLine1(address.getAddressLine1())
+                .addressLine2(address.getAddressLine2())
+                .city(address.getCity())
+                .countryCode(address.getCountryCode())
+                .postalCode(address.getPostalCode())
+                .stateName(address.getStateName())
                 .build();
     }
 
@@ -103,13 +122,22 @@ public class AvisApiReservationPostResponseMapper {
 
     LocationDto getDropOffLocation(Location_ location) {
         return LocationDto.builder()
-                // FIXME: implement!
+                .airportLocation(location.getAirportLocation())
+                .code(location.getCode())
+                .hours(location.getHours())
+                .name(location.getName())
+                .telephone(location.getTelephone())
                 .build();
     }
 
     AddressDto getDropOffAddress(Address_ address) {
         return AddressDto.builder()
-                // FIXME: implement!
+                .addressLine1(address.getAddressLine1())
+                .addressLine2(address.getAddressLine2())
+                .city(address.getCity())
+                .countryCode(address.getCountryCode())
+                .postalCode(address.getPostalCode())
+                .stateName(address.getStateName())
                 .build();
     }
 
