@@ -81,7 +81,7 @@ public class AvisApiReservationPostRequestMapper {
 //        AvisApiRate dtoAvisApiRate = dto.getAvisApiRate();
 //        Rate rate = avisApiRateMapper.toReservationRate(dtoAvisApiRate);
         // FIXME: verify the below mapping!
-        Rate rate = avisApiVehicleMapper.toReservationRate(chosenAvisApiVehicle);
+        Rate rate = avisApiVehicleMapper.extractReservationRate(chosenAvisApiVehicle);
 
         // DISCOUNT
         // FIXME: implement Discount Mapper! Added only to showcase saved Reservations!
