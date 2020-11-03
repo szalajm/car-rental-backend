@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.service.mapper.avis;
+package com.app.car.rental.backend.service;
 
 import com.app.car.rental.backend.service.avis.AvisLocationService;
 import org.junit.Test;
