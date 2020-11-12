@@ -113,7 +113,7 @@ public class CarRentalController {
         return "car-choose";
     }
 
-    @GetMapping("/cars/choose")
+    @GetMapping(CAR_CHOOSE_URI)
     @ResponseBody
     //NOTE: uzywane w js przy klikniecie na samochod
     public AvisModelSessionDto carChoose(

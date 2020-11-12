@@ -15,6 +15,8 @@ public class ControllerConstants {
     public static final String LOCATION_SEARCH_URI = "/locations/search";
     public static final String LOCATION_SEARCH_VIEW = "location-search";
 
+    public static final String CAR_CHOOSE_URI = "/cars/choose";
+
     public static final String PASSENGER_DATA_URI = "/passenger/data";
     public static final String PASSENGER_DATA_VIEW = "passenger-data";
 
