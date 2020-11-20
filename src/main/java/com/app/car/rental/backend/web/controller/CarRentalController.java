@@ -110,7 +110,7 @@ public class CarRentalController {
         modelMap.addAttribute("carReservation", new CarReservationRequestDto());
         modelMap.addAttribute("passengerData", new PassengerDataDto());
 
-        return "car-choose";
+        return CAR_CHOOSE_VIEW;
     }
 
     @GetMapping(CAR_CHOOSE_URI)
@@ -180,10 +180,10 @@ public class CarRentalController {
             }
         }
 
-        return "car-reservation";
+        return CAR_RESERVATION_VIEW;
     }
 
-    @PostMapping("/confirmation")
+    @PostMapping(RESERVATION_CONFIRMATION_URI)
     //@ModelAttribute("session_atribute")
     public String confirmationData(@ModelAttribute(name = "passengerData") PassengerDataDto mocker, ModelMap modelMap) {
 
@@ -194,15 +194,15 @@ public class CarRentalController {
         }
         modelMap.addAttribute("name", "name");
 
-        return "reservation-confirmation";
+        return RESERVATION_CONFIRMATION_VIEW;
     }
 
-    @GetMapping("/reservations")
+    @GetMapping(RESERVATIONS_URI)
     public String carReservationsView(ModelMap modelMap) {
         LOGGER.info("Listing reservations...");
 
         modelMap.addAttribute(RESERVATIONS_ATTRIBUTE, reservationService.list());
 
-        return "reservations";
+        return RESERVATIONS_VIEW;
     }
 }
