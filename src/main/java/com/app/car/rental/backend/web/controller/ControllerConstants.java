@@ -15,10 +15,21 @@ public class ControllerConstants {
     public static final String LOCATION_SEARCH_URI = "/locations/search";
     public static final String LOCATION_SEARCH_VIEW = "location-search";
 
+    public static final String LOCATION_CHOOSE_VIEW = "location-choose";
+
     public static final String CAR_CHOOSE_URI = "/cars/choose";
+    public static final String CAR_CHOOSE_VIEW = "car-choose";
 
     public static final String PASSENGER_DATA_URI = "/passenger/data";
     public static final String PASSENGER_DATA_VIEW = "passenger-data";
+
+    public static final String CAR_RESERVATION_VIEW = "car-reservation";
+
+    public static final String RESERVATIONS_URI = "/reservations";
+    public static final String RESERVATIONS_VIEW = "reservations";
+
+    public static final String RESERVATION_CONFIRMATION_URI = "/confirmation";
+    public static final String RESERVATION_CONFIRMATION_VIEW = "reservation-confirmation";
 
     public static final String PICK_UP_LOCATION_VALIDATION_MESSAGE = "Proszę podać miejsce odbioru samochodu";
     public static final String DROP_OFF_LOCATION_VALIDATION_MESSAGE = "Proszę podać miejsce zwrotu samochodu";
