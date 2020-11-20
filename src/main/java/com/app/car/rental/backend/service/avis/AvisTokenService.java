@@ -17,6 +17,14 @@ import java.util.logging.Logger;
 public class AvisTokenService {
     public static final Logger LOGGER = Logger.getLogger(AvisTokenService.class.getName());
 
+    public String authorizationToken() {
+        LOGGER.info("authorizationToken()");
+        AvisApiToken avisApiToken = token();
+        String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
+        LOGGER.info("authorizationToken() = " + authorizationToken);
+        return authorizationToken;
+    }
+
     public AvisApiToken token(){
         RestTemplate restTemplate = new RestTemplate();
 
