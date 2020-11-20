@@ -17,4 +17,9 @@ public class AvisLocationServiceTest {
     public void locations() {
         avisLocationService.locations("warszawa");
     }
+
+    @Test
+    public void givenLocationNull_whenServiceLocations_thenStatusError() {
+        avisLocationService.locations(null);
+    }
 }

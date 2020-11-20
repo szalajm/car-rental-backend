@@ -1,21 +1,35 @@
 package com.app.car.rental.backend.service;
 
-import com.app.car.rental.backend.api.avis.model.reservation.post.request.*;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Address;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.ArrivalFlight;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Contact;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Discount;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Driver;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Extra;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Insurance;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Loyalty;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Membership;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Passenger;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Product;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Rate;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.RateTotals;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Reservation;
+import com.app.car.rental.backend.api.avis.model.reservation.post.request.Transaction;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
-import com.app.car.rental.backend.service.avis.AvisReservationService;
+import com.app.car.rental.backend.service.avis.AvisReservationOkHttpService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class AvisReservationRequestServiceTest {
     @Autowired
-    private AvisReservationService avisReservationService;
+    private AvisReservationOkHttpService avisReservationOkHttpService;
+//    private AvisReservationService avisReservationService;
 
     @Test
     public void reservations() throws Exception{
@@ -32,8 +46,8 @@ public class AvisReservationRequestServiceTest {
 
         Reservation reservation = new Reservation();
         reservation.setEmailNotification(true);
-        reservation.setDropoffDate("2020-08-20T12:00:00");
-        reservation.setPickupDate("2020-08-15T12:00:00");
+        reservation.setDropoffDate("2020-12-20T12:00:00");
+        reservation.setPickupDate("2020-12-15T12:00:00");
         reservation.setPickupLocation("EWR");
         reservation.setDropoffLocation("EWR");
         reservation.setVehicleClassCode("A");
@@ -107,7 +121,7 @@ public class AvisReservationRequestServiceTest {
         //apiReservation.set
 
         //When
-        AvisApiReservationPostResponse reservations = avisReservationService.reservations(apiReservation);
+        AvisApiReservationPostResponse reservations = avisReservationOkHttpService.reservations(apiReservation);
         System.out.println(reservations);
 
         //Then

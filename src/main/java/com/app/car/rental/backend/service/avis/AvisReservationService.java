@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.logging.Logger;
@@ -29,6 +30,8 @@ public class AvisReservationService {
         String authorizationToken = avisApiToken.getTokenType() + " " + avisApiToken.getAccessToken();
 
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
+
         ObjectMapper objectMapper = new ObjectMapper();
         String bodyString = objectMapper.writeValueAsString(avisApiReservation);
 
