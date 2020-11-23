@@ -1,5 +1,6 @@
 package com.app.car.rental.backend.service.avis;
 
+import com.app.car.rental.backend.api.avis.model.common.AvisApiStatusResponse;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,6 +47,7 @@ public class AvisReservationOkHttpService {
         Headers headers = Headers.of(headersMap);
 
         ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String requestBodyString = objectMapper.writeValueAsString(avisApiReservation);
         RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestBodyString);
 
@@ -66,9 +68,11 @@ public class AvisReservationOkHttpService {
                 || HttpStatus.CREATED.value() == responseStatus) {
             AvisApiReservationPostResponse avisApiReservationPostResponse =
                     objectMapper.readValue(responseBodyString, AvisApiReservationPostResponse.class);
-            LOGGER.info("avisApiReservationPostResponse: " + avisApiReservationPostResponse);
+            LOGGER.info("avisApiReservationPostResponse: {}", avisApiReservationPostResponse);
         } else {
             // FIXME: parse JSON with errors...
+            AvisApiStatusResponse avisApiStatusResponse = objectMapper.readValue(responseBodyString, AvisApiStatusResponse.class);
+            LOGGER.info("avisApiStatusResponse: {}", avisApiStatusResponse);
         }
 
         LOGGER.info("#### response body: {}", responseBodyString);
