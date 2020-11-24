@@ -26,7 +26,20 @@ import javax.validation.Valid;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static com.app.car.rental.backend.web.controller.ControllerConstants.*;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.CAR_CHOOSE_URI;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.CAR_CHOOSE_VIEW;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.CAR_RESERVATION_VIEW;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATIONS_CHOOSE_URI;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_ATTRIBUTE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_URI;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.LOCATION_SEARCH_VIEW;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.PASSENGER_DATA_URI;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.PASSENGER_DATA_VIEW;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATIONS_ATTRIBUTE;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATIONS_URI;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATIONS_VIEW;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATION_CONFIRMATION_URI;
+import static com.app.car.rental.backend.web.controller.ControllerConstants.RESERVATION_CONFIRMATION_VIEW;
 
 @Controller
 @RequestMapping("/v1/rental")
@@ -157,7 +170,8 @@ public class CarRentalController {
     public String carReservationView(
             @ModelAttribute(name = "carReservation") CarReservationRequestDto carReservationRequestDto,
             @Valid @ModelAttribute(name = "passengerData") PassengerDataDto passengerDataDto,
-            BindingResult bindingResult, ModelMap modelMap) {
+            BindingResult bindingResult, ModelMap modelMap) throws Exception {
+
         LOGGER.info("carReservationView");
         LOGGER.info("carReservationRequestDto: " + carReservationRequestDto);
         LOGGER.info("passengerDataDto: " + passengerDataDto);
@@ -171,13 +185,9 @@ public class CarRentalController {
             modelMap.addAttribute(ControllerConstants.AVIS_MODEL_DTO_ATTRIBUTE_SESSION, avisModelSessionDto);
             LOGGER.info("avisModelSessionDto: " + avisModelSessionDto);
 
-            try {
-                Optional<ReservationDto> reservationDtoOptional = reservationManagerService.reserve(carReservationRequestDto, avisModelSessionDto);
-                ReservationDto reservationDto = reservationDtoOptional.orElseThrow(() -> new ReservationException("Unable to reserve car"));
-                reservationService.create(reservationDto);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Optional<ReservationDto> reservationDtoOptional = reservationManagerService.reserve(carReservationRequestDto, avisModelSessionDto);
+            ReservationDto reservationDto = reservationDtoOptional.orElseThrow(() -> new ReservationException("Unable to reserve car"));
+            reservationService.create(reservationDto);
         }
 
         return CAR_RESERVATION_VIEW;

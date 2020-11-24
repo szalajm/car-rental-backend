@@ -8,9 +8,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class DefaultGlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ModelAndView handleAvisApiException() {
+    public ModelAndView handleAvisApiException(Exception e) {
         ModelAndView mav = new ModelAndView();
 
+        mav.addObject("message", e.getMessage());
         mav.setViewName("error");
 
         return mav;
