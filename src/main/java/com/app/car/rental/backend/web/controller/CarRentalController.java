@@ -2,7 +2,7 @@ package com.app.car.rental.backend.web.controller;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
-import com.app.car.rental.backend.api.exception.ReservationException;
+import com.app.car.rental.backend.api.exception.reservation.ReservationException;
 import com.app.car.rental.backend.service.CarRentalService;
 import com.app.car.rental.backend.service.ReservationManagerService;
 import com.app.car.rental.backend.service.ReservationService;

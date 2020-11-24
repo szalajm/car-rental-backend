@@ -1,4 +1,4 @@
-package com.app.car.rental.backend.api.exception;
+package com.app.car.rental.backend.api.exception.reservation;
 
 public class ReservationException extends Exception {
     public ReservationException(String message) {
