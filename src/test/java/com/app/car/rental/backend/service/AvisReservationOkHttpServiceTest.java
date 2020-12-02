@@ -26,13 +26,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class AvisReservationRequestServiceTest {
+public class AvisReservationOkHttpServiceTest {
     @Autowired
     private AvisReservationOkHttpService avisReservationOkHttpService;
-//    private AvisReservationService avisReservationService;
 
     @Test
-    public void reservations() throws Exception{
+    public void reservations() throws Exception {
         //Given
         AvisApiReservationPostRequest apiReservation = new AvisApiReservationPostRequest();
 
