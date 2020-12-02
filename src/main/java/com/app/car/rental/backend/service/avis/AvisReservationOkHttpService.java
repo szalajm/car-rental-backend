@@ -1,11 +1,8 @@
 package com.app.car.rental.backend.service.avis;
 
-import com.app.car.rental.backend.api.avis.model.common.AvisApiStatusResponse;
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
-import com.app.car.rental.backend.api.exception.reservation.ReservationAvisApiException;
-import com.app.car.rental.backend.service.util.AvisApiExceptionUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.app.car.rental.backend.api.exception.AvisApiException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Call;
 import okhttp3.Headers;
@@ -28,15 +25,13 @@ public class AvisReservationOkHttpService {
     private static final String SERVER_URL = "https://stage.abgapiservices.com/cars/reservation/v1";
 
     private final AvisServiceUtils avisServiceUtils;
-    private final AvisApiExceptionUtil avisApiExceptionUtil;
 
-    public AvisReservationOkHttpService(AvisServiceUtils avisServiceUtils, AvisApiExceptionUtil avisApiExceptionUtil) {
+    public AvisReservationOkHttpService(AvisServiceUtils avisServiceUtils) {
         this.avisServiceUtils = avisServiceUtils;
-        this.avisApiExceptionUtil = avisApiExceptionUtil;
     }
 
     public AvisApiReservationPostResponse reservations(AvisApiReservationPostRequest avisApiReservation)
-            throws ReservationAvisApiException, IOException {
+            throws AvisApiException, IOException {
         LOGGER.info("reservations({})", avisApiReservation);
 
         OkHttpClient client = new OkHttpClient();
@@ -59,22 +54,12 @@ public class AvisReservationOkHttpService {
         ResponseBody responseBody = response.body();
 
         String responseBodyString = responseBody.string();
-        if (HttpStatus.OK.value() == responseStatus
-                || HttpStatus.CREATED.value() == responseStatus) {
+        if (HttpStatus.OK.value() == responseStatus || HttpStatus.CREATED.value() == responseStatus) {
             AvisApiReservationPostResponse avisApiReservationPostResponse =
                     objectMapper.readValue(responseBodyString, AvisApiReservationPostResponse.class);
             LOGGER.info("avisApiReservationPostResponse: {}", avisApiReservationPostResponse);
         } else {
-            // FIXME: parse JSON with errors...
-            AvisApiStatusResponse avisApiStatusResponse = null;
-            try {
-                avisApiStatusResponse = objectMapper.readValue(responseBodyString, AvisApiStatusResponse.class);
-            } catch (JsonProcessingException e) {
-                LOGGER.error("Parsing response JSON problem: " + e.getMessage(), e);
-                throw new ReservationAvisApiException("Parsing response JSON problem: " + e.getMessage(), e);
-            }
-            LOGGER.info("avisApiStatusResponse: {}", avisApiStatusResponse);
-            throw new ReservationAvisApiException("Avis Api response error. " + avisApiExceptionUtil.extract(avisApiStatusResponse));
+            avisServiceUtils.avisApiStatusResponseHandler(objectMapper, responseBodyString);
         }
 
         LOGGER.info("#### response body: {}", responseBodyString);

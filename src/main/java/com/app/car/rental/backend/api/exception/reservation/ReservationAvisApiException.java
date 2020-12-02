@@ -1,6 +1,8 @@
 package com.app.car.rental.backend.api.exception.reservation;
 
-public class ReservationAvisApiException extends ReservationException {
+import com.app.car.rental.backend.api.exception.AvisApiException;
+
+public class ReservationAvisApiException extends AvisApiException {
     public ReservationAvisApiException(String message) {
         super(message);
     }

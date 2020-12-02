@@ -16,7 +16,8 @@ public class AvisApiExceptionUtil {
     public String extract(AvisApiStatusResponse response) {
         LOGGER.info("extract({})", response);
 
-        StringBuffer sb = new StringBuffer();;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Problem with Avis API call. ");
 
         if (response != null) {
             AvisApiStatus status = response.getStatus();
