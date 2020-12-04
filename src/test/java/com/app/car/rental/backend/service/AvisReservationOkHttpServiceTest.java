@@ -26,13 +26,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class AvisReservationRequestServiceTest {
+public class AvisReservationOkHttpServiceTest {
     @Autowired
     private AvisReservationOkHttpService avisReservationOkHttpService;
-//    private AvisReservationService avisReservationService;
 
     @Test
-    public void reservations() throws Exception{
+    public void reservations() throws Exception {
         //Given
         AvisApiReservationPostRequest apiReservation = new AvisApiReservationPostRequest();
 
@@ -46,8 +45,8 @@ public class AvisReservationRequestServiceTest {
 
         Reservation reservation = new Reservation();
         reservation.setEmailNotification(true);
-        reservation.setDropoffDate("2020-12-20T12:00:00");
-        reservation.setPickupDate("2020-12-15T12:00:00");
+        reservation.setDropoffDate("2020-11-20T12:00:00");
+        reservation.setPickupDate("2020-11-15T12:00:00");
         reservation.setPickupLocation("EWR");
         reservation.setDropoffLocation("EWR");
         reservation.setVehicleClassCode("A");

@@ -5,7 +5,7 @@ import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisA
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
 import com.app.car.rental.backend.api.avis.model.vehicle.Vehicle;
 import com.app.car.rental.backend.api.exception.VehicleNotFoundException;
-import com.app.car.rental.backend.service.avis.AvisReservationService;
+import com.app.car.rental.backend.service.avis.AvisReservationOkHttpService;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostRequestMapper;
 import com.app.car.rental.backend.service.mapper.avis.AvisApiReservationPostResponseMapper;
 import com.app.car.rental.backend.service.util.AvisApiVehicleUtil;
@@ -22,14 +22,14 @@ public class ReservationManagerService {
 
     private static final Logger LOGGER = Logger.getLogger(ReservationManagerService.class.getName());
 
-    private AvisReservationService avisReservationService;
+    private AvisReservationOkHttpService avisReservationOkHttpService;
     private AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper;
     private AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper;
 
-    public ReservationManagerService(AvisReservationService avisReservationService,
+    public ReservationManagerService(AvisReservationOkHttpService avisReservationOkHttpService,
                                      AvisApiReservationPostRequestMapper avisApiReservationPostRequestMapper,
                                      AvisApiReservationPostResponseMapper avisApiReservationPostResponseMapper) {
-        this.avisReservationService = avisReservationService;
+        this.avisReservationOkHttpService = avisReservationOkHttpService;
         this.avisApiReservationPostRequestMapper = avisApiReservationPostRequestMapper;
         this.avisApiReservationPostResponseMapper = avisApiReservationPostResponseMapper;
     }
@@ -51,7 +51,7 @@ public class ReservationManagerService {
                 avisModelSessionDto.setChosenVehicle(vehicle);
 
                 AvisApiReservationPostRequest apiReservation = avisApiReservationPostRequestMapper.from(avisModelSessionDto);
-                AvisApiReservationPostResponse avisApiReservationPostResponse = avisReservationService.reservations(apiReservation);
+                AvisApiReservationPostResponse avisApiReservationPostResponse = avisReservationOkHttpService.reservations(apiReservation);
 
                 Optional<ReservationDto> reservationDtoOptional = avisApiReservationPostResponseMapper.from(avisApiReservationPostResponse);
 //                return reservationDtoOptional.orElseThrow(() -> new ReservationNotMappedException("AvisApiReservationPostResponse not mapped"));

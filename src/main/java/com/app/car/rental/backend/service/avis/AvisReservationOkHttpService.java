@@ -2,6 +2,7 @@ package com.app.car.rental.backend.service.avis;
 
 import com.app.car.rental.backend.api.avis.model.reservation.post.request.AvisApiReservationPostRequest;
 import com.app.car.rental.backend.api.avis.model.reservation.post.response.AvisApiReservationPostResponse;
+import com.app.car.rental.backend.api.exception.AvisApiException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Call;
 import okhttp3.Headers;
@@ -13,11 +14,9 @@ import okhttp3.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 @Service
 public class AvisReservationOkHttpService {
@@ -25,25 +24,18 @@ public class AvisReservationOkHttpService {
 
     private static final String SERVER_URL = "https://stage.abgapiservices.com/cars/reservation/v1";
 
-    private final AvisTokenService avisTokenService;
+    private final AvisServiceUtils avisServiceUtils;
 
-    public AvisReservationOkHttpService(AvisTokenService avisTokenService) {
-        this.avisTokenService = avisTokenService;
+    public AvisReservationOkHttpService(AvisServiceUtils avisServiceUtils) {
+        this.avisServiceUtils = avisServiceUtils;
     }
 
-    public AvisApiReservationPostResponse reservations(AvisApiReservationPostRequest avisApiReservation) throws IOException {
+    public AvisApiReservationPostResponse reservations(AvisApiReservationPostRequest avisApiReservation)
+            throws AvisApiException, IOException {
         LOGGER.info("reservations({})", avisApiReservation);
 
-        String authorizationToken = avisTokenService.authorizationToken();
-
         OkHttpClient client = new OkHttpClient();
-
-        HashMap<String, String> headersMap = new HashMap<>();
-        headersMap.put("client_id", "2d8fd8f532234bd484e512d83aec3b4e");
-        headersMap.put("Authorization", authorizationToken);
-        headersMap.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-
-        Headers headers = Headers.of(headersMap);
+        Headers headers = avisServiceUtils.createHeaders();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBodyString = objectMapper.writeValueAsString(avisApiReservation);
@@ -62,13 +54,12 @@ public class AvisReservationOkHttpService {
         ResponseBody responseBody = response.body();
 
         String responseBodyString = responseBody.string();
-        if (HttpStatus.OK.value() == responseStatus
-                || HttpStatus.CREATED.value() == responseStatus) {
+        if (HttpStatus.OK.value() == responseStatus || HttpStatus.CREATED.value() == responseStatus) {
             AvisApiReservationPostResponse avisApiReservationPostResponse =
                     objectMapper.readValue(responseBodyString, AvisApiReservationPostResponse.class);
-            LOGGER.info("avisApiReservationPostResponse: " + avisApiReservationPostResponse);
+            LOGGER.info("avisApiReservationPostResponse: {}", avisApiReservationPostResponse);
         } else {
-            // FIXME: parse JSON with errors...
+            avisServiceUtils.avisApiStatusResponseHandler(objectMapper, responseBodyString);
         }
 
         LOGGER.info("#### response body: {}", responseBodyString);
