@@ -2,6 +2,7 @@ package com.app.car.rental.backend.web.controller;
 
 import com.app.car.rental.backend.api.avis.model.location.AvisApiLocation;
 import com.app.car.rental.backend.api.avis.model.vehicle.AvisApiVehicle;
+import com.app.car.rental.backend.api.exception.AvisApiException;
 import com.app.car.rental.backend.api.exception.reservation.ReservationException;
 import com.app.car.rental.backend.service.CarRentalService;
 import com.app.car.rental.backend.service.ReservationManagerService;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -100,7 +102,7 @@ public class CarRentalController {
     @PostMapping("/cars/choose")
     public String carChooseView(
             @ModelAttribute(name = "carSearch") LocationSearchRequestDto locationSearchRequestDto,
-            ModelMap modelMap) {
+            ModelMap modelMap) throws IOException, AvisApiException {
         LOGGER.info("carChooseView");
         LOGGER.info("locationSearchRequestDto: " + locationSearchRequestDto);
 
