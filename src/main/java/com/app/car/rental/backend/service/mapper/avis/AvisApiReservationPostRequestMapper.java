@@ -89,14 +89,14 @@ public class AvisApiReservationPostRequestMapper {
         discount.setCode("A442100");
         rate.setDiscount(discount);
 
-        Loyalty loyalty = new Loyalty();
-        rate.setLoyalty(loyalty);
+//        Loyalty loyalty = new Loyalty();
+//        rate.setLoyalty(loyalty);
 
         // MEMBERSHIP
         // FIXME: implement Membership Mapper! Added only to showcase saved Reservations!
-        Membership membership = new Membership();
-        membership.setCode("E7L15V");
-        rate.setMembership(membership);
+//        Membership membership = new Membership();
+//        membership.setCode("E7L15V");
+//        rate.setMembership(membership);
 
         RateTotals rateTotals = new RateTotals();
         rateTotals.setRate(rate);
